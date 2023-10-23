@@ -4,7 +4,7 @@ namespace ContactRegistry.Domain.Entities;
 
 public class ContactFeature : BaseEntity
 {
-    public string ContactId { get; set; }
+    public Guid  ContactId { get; set; }
     public ContactFeatureType ContactFeatureType { get; set; }
     public string ContactFeatureValue { get; set; }
 }
