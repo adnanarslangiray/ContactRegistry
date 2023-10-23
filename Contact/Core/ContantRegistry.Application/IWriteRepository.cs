@@ -1,21 +1,20 @@
 ﻿using ContactRegistry.Domain.Entities.Common;
 
-namespace ContantRegistry.Application
+namespace ContantRegistry.Application;
+
+public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity
 {
-    public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity
-    {
-        Task<bool> AddAsync(T model);
+    Task<bool> AddAsync(T model);
 
-        Task<bool> AddRangeAsync(List<T> datas);
+    Task<bool> AddRangeAsync(List<T> datas);
 
-        bool Remove(T model);
+    bool Remove(T model);
 
-        bool RemoveRange(List<T> datas);
+    bool RemoveRange(List<T> data);
 
-        Task<bool> RemoveAsync(string id);
+    Task<bool> RemoveAsync(string id);
 
-        bool Update(T model);
+    bool Update(T model);
 
-        Task<int> SaveAsync();
-    }
+    Task<int> SaveAsync();
 }

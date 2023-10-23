@@ -1,5 +1,11 @@
-﻿namespace ContactRegistry.Persistence.Repositories.ContactFeatures;
+﻿using ContactRegistry.Persistence.Contexts;
+using ContantRegistry.Application.Repositories;
 
-public class ContactFeaturesWriteRepository
+namespace ContactRegistry.Persistence.Repositories;
+
+public class ContactFeaturesWriteRepository : WriteRepository<ContactRegistry.Domain.Entities.ContactFeature>, IContactFeatureWriteRepository
 {
+    public ContactFeaturesWriteRepository(ContactDbContext context) : base(context)
+    {
+    }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ContantRegistry.Application.Repositories;
 
-namespace ContantRegistry.Application.Repositories.Contact
+public interface IContactWriteRepository : IWriteRepository<ContactRegistry.Domain.Entities.Contact>
 {
-    internal interface IContactWriteRepository
-    {
-    }
 }

@@ -1,6 +1,5 @@
-﻿namespace ContactRegistry.Persistence.Services
+﻿namespace ContactRegistry.Persistence.Services;
+
+public class ContactService
 {
-    internal class ContactService
-    {
-    }
 }

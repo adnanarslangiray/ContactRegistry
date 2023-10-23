@@ -1,6 +1,11 @@
-﻿namespace ContactRegistry.Persistence.Repositories.Contact
+﻿using ContactRegistry.Persistence.Contexts;
+using ContantRegistry.Application.Repositories;
+
+namespace ContactRegistry.Persistence.Repositories;
+
+public class ContactWriteRepository : WriteRepository<ContactRegistry.Domain.Entities.Contact>, IContactWriteRepository
 {
-    internal class ContactWriteRepository
+    public ContactWriteRepository(ContactDbContext context) : base(context)
     {
     }
 }

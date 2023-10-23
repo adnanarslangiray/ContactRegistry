@@ -1,6 +1,5 @@
-﻿namespace ContantRegistry.Application.Repositories.Contact
+﻿namespace ContantRegistry.Application.Repositories;
+
+public interface IContactReadRepository : IReadRepository<ContactRegistry.Domain.Entities.Contact>
 {
-    internal interface IContactReadRepository
-    {
-    }
 }

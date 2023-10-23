@@ -2,13 +2,15 @@
 
 namespace ContactRegistry.Domain.Entities;
 
-public class ContactFeature : BaseEntity {
+public class ContactFeature : BaseEntity
+{
     public string ContactId { get; set; }
     public ContactFeatureType ContactFeatureType { get; set; }
     public string ContactFeatureValue { get; set; }
 }
 
-public enum ContactFeatureType {
+public enum ContactFeatureType
+{
     Email,
     Phone,
     Location
