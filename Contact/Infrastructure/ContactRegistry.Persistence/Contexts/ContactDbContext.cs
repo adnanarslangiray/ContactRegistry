@@ -10,6 +10,7 @@ public class ContactDbContext : DbContext {
     }
 
     protected override void OnModelCreating( ModelBuilder modelBuilder ) {
+
         modelBuilder.ApplyConfigurationsFromAssembly( typeof( ContactDbContext ).Assembly );
     }
 

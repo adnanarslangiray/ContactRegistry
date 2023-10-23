@@ -1,6 +1,5 @@
-﻿namespace ContantRegistry.Application.Abstractions.Services
+﻿namespace ContantRegistry.Application.Abstractions.Services;
+
+public interface IContactService
 {
-    public interface IContactService
-    {
-    }
 }

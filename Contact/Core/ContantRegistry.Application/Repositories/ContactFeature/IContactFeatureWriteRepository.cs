@@ -1,6 +1,5 @@
-﻿namespace ContantRegistry.Application.Repositories.ContactFeature
+﻿namespace ContantRegistry.Application.Repositories;
+
+public interface IContactFeatureWriteRepository : IWriteRepository<ContactRegistry.Domain.Entities.ContactFeature>
 {
-    internal interface IContactFeatureWriteRepository
-    {
-    }
 }

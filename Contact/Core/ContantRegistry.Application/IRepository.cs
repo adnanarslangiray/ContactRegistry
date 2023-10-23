@@ -1,10 +1,9 @@
 ﻿using ContactRegistry.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContantRegistry.Application
+namespace ContantRegistry.Application;
+
+public interface IRepository<T> where T : BaseEntity
 {
-    public interface IRepository<T> where T : BaseEntity
-    {
-        DbSet<T> Table { get; }
-    }
+    DbSet<T> Table { get; }
 }
