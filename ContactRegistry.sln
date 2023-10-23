@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.ContactAPI", "Src\Contact\ContactRegistry.ContactAPI\ContactRegistry.ContactAPI.csproj", "{599D9D58-77E2-4174-835B-8AD3E81615AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{A99A3C1F-089A-4C1D-9B8F-9E5C9F7AB6F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contact", "Contact", "{F37F0197-D4B4-4A53-AF81-53C790FD8006}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4E2E03E6-FCB7-4196-8E27-B28FAEF63355}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3B003EC6-BBEF-40D8-BE12-9E08D9361C07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{53442066-74E8-478D-93AF-414CD497F56F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{599D9D58-77E2-4174-835B-8AD3E81615AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599D9D58-77E2-4174-835B-8AD3E81615AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599D9D58-77E2-4174-835B-8AD3E81615AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599D9D58-77E2-4174-835B-8AD3E81615AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{599D9D58-77E2-4174-835B-8AD3E81615AF} = {F37F0197-D4B4-4A53-AF81-53C790FD8006}
+		{F37F0197-D4B4-4A53-AF81-53C790FD8006} = {A99A3C1F-089A-4C1D-9B8F-9E5C9F7AB6F7}
+		{4E2E03E6-FCB7-4196-8E27-B28FAEF63355} = {F37F0197-D4B4-4A53-AF81-53C790FD8006}
+		{3B003EC6-BBEF-40D8-BE12-9E08D9361C07} = {F37F0197-D4B4-4A53-AF81-53C790FD8006}
+		{53442066-74E8-478D-93AF-414CD497F56F} = {F37F0197-D4B4-4A53-AF81-53C790FD8006}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BBFAF88-499A-4699-9980-6E89831B64BF}
+	EndGlobalSection
+EndGlobal
