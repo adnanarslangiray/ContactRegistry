@@ -1,5 +1,9 @@
-﻿namespace ContactRegistry.Persistence.Services;
+﻿using ContantRegistry.Application.Abstractions.Services;
 
-public class ContactService
+namespace ContactRegistry.Persistence.Services;
+
+public class ContactService : IContactService
 {
+
+
 }

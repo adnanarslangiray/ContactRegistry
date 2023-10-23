@@ -2,6 +2,7 @@
 using ContactRegistry.Persistence.Contexts;
 using ContantRegistry.Application;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ContactRegistry.Persistence.Repositories;
 
@@ -14,40 +15,44 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
         _context=context;
     }
 
-    public DbSet<T> Table => throw new NotImplementedException();
+    public DbSet<T> Table => _context.Set<T>();
 
-    public Task<bool> AddAsync(T model)
+    public async Task<bool> AddAsync(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry<T> entityEntry = await Table.AddAsync(model);
+        return entityEntry.State == EntityState.Added;
     }
 
-    public Task<bool> AddRangeAsync(List<T> datas)
+    public async Task<bool> AddRangeAsync(List<T> data)
     {
-        throw new NotImplementedException();
+        await Table.AddRangeAsync(data);
+        return true;
     }
 
     public bool Remove(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry<T> entityEntry = Table.Remove(model);
+        return entityEntry.State == EntityState.Deleted;
     }
 
-    public Task<bool> RemoveAsync(string id)
+    public async Task<bool> RemoveAsync(string id)
     {
-        throw new NotImplementedException();
+        T model = await Table.FindAsync(Guid.Parse(id));
+        return Remove(model);
     }
 
     public bool RemoveRange(List<T> data)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<int> SaveAsync()
-    {
-        throw new NotImplementedException();
+        Table.RemoveRange(data);
+        return true;
     }
 
     public bool Update(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry<T> entityEntry = Table.Update(model);
+        return entityEntry.State == EntityState.Modified;
     }
+
+    public async Task<int> SaveAsync()
+        => await _context.SaveChangesAsync();
 }
