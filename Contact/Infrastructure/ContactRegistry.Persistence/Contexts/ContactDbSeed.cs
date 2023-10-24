@@ -21,6 +21,17 @@ public class ContactDbSeed
             LastName = "Arslangiray",
             Company = "FreeCodeCamp"
         };
+        List<ContactFeature> features = new()
+        {
+            new ContactFeature()
+            {
+            ContactFeatureType = ContactFeatureType.Phone,
+            ContactFeatureValue = "5555555555",
+            ContactId = contact.Id
+
+            }
+        };
+        contact.ContactFeatures = features;
         yield return contact;
     }
 }

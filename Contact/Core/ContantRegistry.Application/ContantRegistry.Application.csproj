@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ContactRegistery.Domain\ContactRegistry.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

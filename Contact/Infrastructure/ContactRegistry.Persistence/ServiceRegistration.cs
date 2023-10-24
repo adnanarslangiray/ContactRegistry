@@ -13,9 +13,7 @@ public static class ServiceRegistration
     public static void AddPersistenceServices(this IServiceCollection services)
     {
         services.AddDbContext<ContactDbContext>(options
-                => options.UseNpgsql(Configurations.GetConnectionString),
-                ServiceLifetime.Singleton,
-                ServiceLifetime.Singleton);
+                => options.UseNpgsql(Configurations.GetConnectionString),ServiceLifetime.Transient,ServiceLifetime.Transient);
 
         // repositories
         services.AddScoped<IContactReadRepository, ContactReadRepository>();

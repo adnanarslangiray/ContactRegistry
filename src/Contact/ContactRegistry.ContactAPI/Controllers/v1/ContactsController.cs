@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ContantRegistry.Application.Features.Queries.GetContacts;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContactRegistry.ContactAPI.Controllers.v1
 {
@@ -7,10 +9,18 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class ContactsController : ControllerBase
     {
-        [HttpGet("contacts")]
-        public IActionResult GetContacts()
+        private readonly IMediator _mediator;
+
+        public ContactsController(IMediator mediator)
         {
-            return Ok();
+            _mediator=mediator;
+        }
+
+        [HttpGet("contacts")]
+        public async Task<IActionResult> GetContacts([FromQuery] GetContactsQueryRequest request)
+        {
+            GetContactsQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpGet("contacts/{id}")]
