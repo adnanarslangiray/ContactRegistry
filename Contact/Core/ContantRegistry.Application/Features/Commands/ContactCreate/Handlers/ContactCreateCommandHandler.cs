@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using ContactRegistry.Domain.Entities;
-using ContactRegistry.Domain.Utilities;
 using ContantRegistry.Application.Repositories;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactCreate.Handlers;
 
-public class ContactCreateCommandHandler : IRequestHandler<ContactCreateCommandRequest, BaseResponse<ContactCreateCommandResponse>>
+public class ContactCreateCommandHandler : IRequestHandler<ContactCreateCommandRequest, ContactCreateCommandResponse>
 {
     private readonly IContactWriteRepository _contactWriteRepository;
     private readonly IMapper _mapper;
@@ -17,7 +16,7 @@ public class ContactCreateCommandHandler : IRequestHandler<ContactCreateCommandR
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<ContactCreateCommandResponse>> Handle(ContactCreateCommandRequest request, CancellationToken cancellationToken)
+    public async Task<ContactCreateCommandResponse> Handle(ContactCreateCommandRequest request, CancellationToken cancellationToken)
     {
         var contact = _mapper.Map<Contact>(request);
         if (contact == null)
@@ -27,6 +26,7 @@ public class ContactCreateCommandHandler : IRequestHandler<ContactCreateCommandR
         if (result == null)
             throw new ApplicationException("Contact could not added!");
 
-        return new BaseResponse<ContactCreateCommandResponse>(new(), result);
+        var response = new ContactCreateCommandResponse() { Success = result, Message = result ? "Contact Added" : "Failed" };
+        return response;
     }
 }

@@ -1,4 +1,8 @@
-﻿using ContantRegistry.Application.Features.Queries.GetContacts;
+﻿using ContantRegistry.Application.Features.Commands.ContactCreate;
+using ContantRegistry.Application.Features.Commands.ContactDelete;
+using ContantRegistry.Application.Features.Commands.ContactUpdate;
+using ContantRegistry.Application.Features.Queries.GetContactById;
+using ContantRegistry.Application.Features.Queries.GetContacts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,32 +23,38 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         [HttpGet("contacts")]
         public async Task<IActionResult> GetContacts([FromQuery] GetContactsQueryRequest request)
         {
-            GetContactsQueryResponse response = await _mediator.Send(request);
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpGet("contacts/{id}")]
-        public IActionResult GetContactById(string id)
+        public async Task<IActionResult> GetContactById([FromRoute] GetContactByIdQueryRequest request)
         {
-            return Ok();
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
         }
 
         [HttpPost("contacts")]
-        public IActionResult CreateContact()
+        public IActionResult CreateContact([FromBody] ContactCreateCommandRequest request)
         {
-            return Ok();
+            var response = _mediator.Send(request);
+            return Ok(response);
         }
 
-        [HttpPut("contacts/{id}")]
-        public IActionResult UpdateContact(string id)
+        [HttpPut("contacts")]
+        public IActionResult UpdateContact([FromBody] ContactUpdateCommandRequest request)
         {
-            return Ok();
+            var response = _mediator.Send(request);
+
+            return Ok(response);
         }
 
         [HttpDelete("contacts/{id}")]
-        public IActionResult DeleteContact(string id)
+        public IActionResult DeleteContact([FromRoute] ContactDeleteCommandRequest request)
         {
-            return Ok();
+            var response = _mediator.Send(request);
+            return Ok(response);
         }
     }
 }

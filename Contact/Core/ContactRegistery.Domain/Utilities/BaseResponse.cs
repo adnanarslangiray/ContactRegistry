@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿
+
+
+
+using System.Text.Json.Serialization;
 
 namespace ContactRegistry.Domain.Utilities;
 
@@ -24,7 +28,6 @@ public class BaseResponse<T>
     {
         Data = data;
     }
-
 }
 
 public class BaseResponse

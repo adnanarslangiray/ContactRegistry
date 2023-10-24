@@ -1,9 +1,10 @@
-﻿using ContantRegistry.Application.Abstractions.Services;
+﻿using ContactRegistry.Domain.Utilities;
+using ContantRegistry.Application.Abstractions.Services;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Queries.GetContacts.Handlers;
 
-public class GetContactsQueryHandler : IRequestHandler<GetContactsQueryRequest, GetContactsQueryResponse>
+public class GetContactsQueryHandler : IRequestHandler<GetContactsQueryRequest, BasePaginationResponse<GetContactsQueryResponse>>
 {
     private readonly IContactService _contactService;
 
@@ -12,14 +13,18 @@ public class GetContactsQueryHandler : IRequestHandler<GetContactsQueryRequest, 
         _contactService=contactService;
     }
 
-    public async Task<GetContactsQueryResponse> Handle(GetContactsQueryRequest request, CancellationToken cancellationToken)
+    public async Task<BasePaginationResponse<GetContactsQueryResponse>> Handle(GetContactsQueryRequest request, CancellationToken cancellationToken)
     {
         var result = await _contactService.GetAllAsync(request.Page, request.Size);
-        return new GetContactsQueryResponse()
-        {
 
-            Contacts = result.Contacts,
-            TotalCount = result.TotalCount,
-        };
+        var data = new GetContactsQueryResponse() { Contacts = result.Contacts };
+        return new BasePaginationResponse<GetContactsQueryResponse>(
+            data: data,
+            success: true,
+            message: "Contacts listed successfully.",
+            totalCount: result.TotalCount,
+            currentPageIndex: request.Page,
+            pageSize: request.Size);
+
     }
 }
