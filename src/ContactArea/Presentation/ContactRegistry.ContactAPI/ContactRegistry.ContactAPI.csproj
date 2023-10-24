@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Contact\Infrastructure\ContactRegistry.Persistence\ContactRegistry.Persistence.csproj" />
     <ProjectReference Include="..\..\Core\ContantRegistry.Application\ContantRegistry.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ContactRegistry.Persistence\ContactRegistry.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
