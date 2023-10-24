@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
 using RabbitMQ.Client.Exceptions;
 using RabbitMQEventBus.Events.Interfaces;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.Json;
 
 namespace RabbitMQEventBus.Producer;
 
@@ -39,7 +39,7 @@ public class RabbitMQEventBusProducer
         using var channel = _persistentConnection.CreateModel();
         var eventName = @event.GetType().Name;
         channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-        var message = JsonSerializer.Serialize(@event);
+        var message = JsonConvert.SerializeObject(@event);
         var body = Encoding.UTF8.GetBytes(message);
 
         //policy publish için eklendi, eğer publish başarısız olursa tekrar dener
