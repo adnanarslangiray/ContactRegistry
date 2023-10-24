@@ -1,7 +1,7 @@
 ﻿using ContactRegistry.Domain.Entities;
 using ContantRegistry.Application.Abstractions.Services;
 using ContantRegistry.Application.DTOs;
-using ContantRegistry.Application.Repositories;
+using ContantRegistry.Application.Repositories.Contact;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactRegistry.Persistence.Services;

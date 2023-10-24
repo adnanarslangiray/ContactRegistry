@@ -28,7 +28,6 @@ public class ContactDbSeed
             ContactFeatureType = ContactFeatureType.Phone,
             ContactFeatureValue = "5555555555",
             ContactId = contact.Id
-
             }
         };
         contact.ContactFeatures = features;

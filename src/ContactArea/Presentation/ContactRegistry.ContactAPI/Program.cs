@@ -24,7 +24,6 @@ builder.Services.AddApiVersioning(opt =>
 
 SwaggerConfigure(builder.Services);
 
-
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -60,7 +59,6 @@ static void SwaggerConfigure(IServiceCollection serviceCollection)
                 Name = "Adnan Arslangiray",
                 Url = new Uri("https://adnanarslangiray.com")
             },
-
         });
     });
 }

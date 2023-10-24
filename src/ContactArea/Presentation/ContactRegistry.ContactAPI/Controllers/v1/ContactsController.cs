@@ -38,7 +38,7 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         [HttpPost("contacts")]
         public async Task<IActionResult> CreateContact([FromBody] ContactCreateCommandRequest request)
         {
-            var response = await  _mediator.Send(request);
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
 

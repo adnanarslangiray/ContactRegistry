@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ContactRegistry.Domain.Entities;
-using ContantRegistry.Application.Repositories;
+using ContantRegistry.Application.Repositories.Contact;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactCreate.Handlers;

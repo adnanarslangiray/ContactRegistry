@@ -1,9 +1,9 @@
 ﻿using ContactRegistry.Persistence.Contexts;
-using ContantRegistry.Application.Repositories;
+using ContantRegistry.Application.Repositories.ContactFeature;
 
-namespace ContactRegistry.Persistence.Repositories;
+namespace ContactRegistry.Persistence.Repositories.ContactFeatures;
 
-public class ContactFeaturesReadRepository : ReadRepository<ContactRegistry.Domain.Entities.ContactFeature>, IContactFeatureReadRepository
+public class ContactFeaturesReadRepository : ReadRepository<Domain.Entities.ContactFeature>, IContactFeatureReadRepository
 {
     public ContactFeaturesReadRepository(ContactDbContext context) : base(context)
     {

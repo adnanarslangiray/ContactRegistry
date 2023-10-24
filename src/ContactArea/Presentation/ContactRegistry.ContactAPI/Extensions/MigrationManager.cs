@@ -12,7 +12,7 @@ public static class MigrationManager
             using var scope = app.ApplicationServices.CreateScope();
             using var context = scope.ServiceProvider.GetRequiredService<ContactDbContext>();
             context.Database.Migrate();
-     
+
             ContactDbSeed.SeedAsync(context).Wait();
         }
         catch (Exception)

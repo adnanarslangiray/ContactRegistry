@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\ContactRegistery.Domain\ContactRegistry.Domain.csproj" />
-    <ProjectReference Include="..\..\Core\ContantRegistry.Application\ContantRegistry.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\ContactArea\Core\ContactRegistery.Domain\ContactRegistry.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\ContactArea\Core\ContantRegistry.Application\ContantRegistry.Application.csproj" />
   </ItemGroup>
 
 </Project>

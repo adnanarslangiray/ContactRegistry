@@ -1,5 +1,5 @@
 ﻿using ContactRegistry.Domain.Utilities;
-using ContantRegistry.Application.Repositories;
+using ContantRegistry.Application.Repositories.Contact;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactDelete.Handlers;
