@@ -27,7 +27,12 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
 
     public IModel CreateModel()
     {
-        throw new NotImplementedException();
+        if (IsConnected == false)
+        {
+            throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
+        }
+
+        return _connection.CreateModel();
     }
 
     public void Dispose()
@@ -75,12 +80,10 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
 
     private void OnConnectionBlocked(object? sender, ConnectionBlockedEventArgs e)
     {
-       
         if (_disposed) return;
         _logger.LogWarning("A RabbitMQ connection is shutdown. Trying to re-connect...");
 
         TryConnect();
-
     }
 
     private void OnCallbackException(object? sender, CallbackExceptionEventArgs e)
