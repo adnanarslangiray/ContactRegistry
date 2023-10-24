@@ -7,6 +7,11 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+    {
+        _validators=validators;
+    }
+
     public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);

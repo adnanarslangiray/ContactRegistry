@@ -1,5 +1,7 @@
 ﻿using ContantRegistry.Application.Mapper;
+using ContantRegistry.Application.PipelineBehaviours;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -15,6 +17,10 @@ public static class ServiceRegistration
                             cfg.RegisterServicesFromAssembly(typeof(ServiceRegistration).Assembly));
 
         services.AddValidatorsFromAssembly(typeof(ServiceRegistration).Assembly);
+
+        //Pipeline Behaviours
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionBehaviours<,>));
 
         #region ConfigureMapper
 
