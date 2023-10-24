@@ -1,5 +1,7 @@
-﻿namespace ContantRegistry.Application.Features.Commands.ContactUpdate;
+﻿using ContactRegistry.Domain.Utilities;
 
-public class ContactUpdateCommandResponse
+namespace ContantRegistry.Application.Features.Commands.ContactUpdate;
+
+public class ContactUpdateCommandResponse : BaseResponse
 {
 }

@@ -6,8 +6,8 @@ public class ContactCreateValidator : AbstractValidator<ContactCreateCommandRequ
 {
     public ContactCreateValidator()
     {
-        RuleFor(x => x.FirstName).NotEmpty().MaximumLength(5);
-        RuleFor(x => x.LastName).NotEmpty().MaximumLength(5);
-        RuleFor(x => x.Company).NotEmpty().MaximumLength(2);
+        RuleFor(x => x.FirstName).NotEmpty().NotNull().MaximumLength(50);
+        RuleFor(x => x.LastName).NotEmpty().NotNull().MaximumLength(50);
+        RuleFor(x => x.Company).NotEmpty().NotNull().MaximumLength(50);
     }
 }

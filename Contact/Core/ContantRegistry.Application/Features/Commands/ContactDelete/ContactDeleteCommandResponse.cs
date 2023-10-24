@@ -1,5 +1,7 @@
-﻿namespace ContantRegistry.Application.Features.Commands.ContactDelete;
+﻿using ContactRegistry.Domain.Utilities;
 
-public class ContactDeleteCommandResponse
+namespace ContantRegistry.Application.Features.Commands.ContactDelete;
+
+public class ContactDeleteCommandResponse : BaseResponse
 {
 }

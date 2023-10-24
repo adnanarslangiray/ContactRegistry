@@ -36,24 +36,24 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         }
 
         [HttpPost("contacts")]
-        public IActionResult CreateContact([FromBody] ContactCreateCommandRequest request)
+        public async Task<IActionResult> CreateContact([FromBody] ContactCreateCommandRequest request)
         {
-            var response = _mediator.Send(request);
+            var response = await  _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPut("contacts")]
-        public IActionResult UpdateContact([FromBody] ContactUpdateCommandRequest request)
+        public async Task<IActionResult> UpdateContact([FromBody] ContactUpdateCommandRequest request)
         {
-            var response = _mediator.Send(request);
+            var response = await _mediator.Send(request);
 
             return Ok(response);
         }
 
         [HttpDelete("contacts/{id}")]
-        public IActionResult DeleteContact([FromRoute] ContactDeleteCommandRequest request)
+        public async Task<IActionResult> DeleteContact([FromRoute] ContactDeleteCommandRequest request)
         {
-            var response = _mediator.Send(request);
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
     }

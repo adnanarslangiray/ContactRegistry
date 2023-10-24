@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactUpdate;
 
-public class ContactUpdateCommandRequest : IRequest<BaseResponse<ContactUpdateCommandResponse>>
+public class ContactUpdateCommandRequest : IRequest<ContactUpdateCommandResponse>
 {
     public string Id { get; set; }
     public string FirstName { get; set; }
