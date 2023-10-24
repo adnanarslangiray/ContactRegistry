@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBusArea", "EventBusAre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQEventBus", "EventBusArea\RabbitMQEventBus\RabbitMQEventBus.csproj", "{5DDAC0DF-0CF8-46D0-A919-F91D9D64B292}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContactReportArea", "ContactReportArea", "{DDA9D60F-F8E1-4A95-B2C3-22341F7C64E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactRegistery.ContactReport", "Src\ContactReportArea\ContactRegistery.ContactReport\ContactRegistery.ContactReport.csproj", "{C4E49B9F-0903-43F3-BB71-55323FD25E53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{5DDAC0DF-0CF8-46D0-A919-F91D9D64B292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DDAC0DF-0CF8-46D0-A919-F91D9D64B292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DDAC0DF-0CF8-46D0-A919-F91D9D64B292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E49B9F-0903-43F3-BB71-55323FD25E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E49B9F-0903-43F3-BB71-55323FD25E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E49B9F-0903-43F3-BB71-55323FD25E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E49B9F-0903-43F3-BB71-55323FD25E53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,8 @@ Global
 		{D64F6614-062C-4309-8229-4D99DA7852F4} = {3B003EC6-BBEF-40D8-BE12-9E08D9361C07}
 		{C0C810F0-644A-4A7B-9FD8-720D76E128AB} = {A99A3C1F-089A-4C1D-9B8F-9E5C9F7AB6F7}
 		{5DDAC0DF-0CF8-46D0-A919-F91D9D64B292} = {C0C810F0-644A-4A7B-9FD8-720D76E128AB}
+		{DDA9D60F-F8E1-4A95-B2C3-22341F7C64E0} = {A99A3C1F-089A-4C1D-9B8F-9E5C9F7AB6F7}
+		{C4E49B9F-0903-43F3-BB71-55323FD25E53} = {DDA9D60F-F8E1-4A95-B2C3-22341F7C64E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BBFAF88-499A-4699-9980-6E89831B64BF}
