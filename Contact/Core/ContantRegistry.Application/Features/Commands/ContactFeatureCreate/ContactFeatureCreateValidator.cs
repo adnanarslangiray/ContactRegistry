@@ -1,5 +1,7 @@
-﻿namespace ContantRegistry.Application.Features.Commands.ContactFeatureCreate;
+﻿using FluentValidation;
 
-public class ContactFeatureCreateValidator
+namespace ContantRegistry.Application.Features.Commands.ContactFeatureCreate;
+
+public class ContactFeatureCreateValidator  : AbstractValidator<ContactFeatureCreateCommandRequest>
 {
 }
