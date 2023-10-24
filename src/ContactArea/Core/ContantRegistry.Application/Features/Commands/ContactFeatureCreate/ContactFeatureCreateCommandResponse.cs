@@ -1,5 +1,7 @@
-﻿namespace ContantRegistry.Application.Features.Commands.ContactFeatureCreate;
+﻿using ContactRegistry.Domain.Utilities;
 
-public class ContactFeatureCreateCommandResponse
+namespace ContantRegistry.Application.Features.Commands.ContactFeatureCreate;
+
+public class ContactFeatureCreateCommandResponse : BaseResponse
 {
 }

@@ -1,8 +1,10 @@
 ﻿using ContactRegistry.Persistence.Contexts;
 using ContactRegistry.Persistence.Repositories.Contact;
+using ContactRegistry.Persistence.Repositories.ContactFeatures;
 using ContactRegistry.Persistence.Services;
 using ContantRegistry.Application.Abstractions.Services;
 using ContantRegistry.Application.Repositories.Contact;
+using ContantRegistry.Application.Repositories.ContactFeature;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,8 @@ public static class ServiceRegistration
         // repositories
         services.AddScoped<IContactReadRepository, ContactReadRepository>();
         services.AddScoped<IContactWriteRepository, ContactWriteRepository>();
+        services.AddScoped<IContactFeatureWriteRepository, ContactFeaturesWriteRepository>();
+        services.AddScoped<IContactFeatureReadRepository, ContactFeaturesReadRepository>();
 
         //services
         services.AddScoped<IContactService, ContactService>();

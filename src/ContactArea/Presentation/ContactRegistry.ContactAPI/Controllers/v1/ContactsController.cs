@@ -1,4 +1,5 @@
-﻿using ContantRegistry.Application.Features.Commands.ContactCreate;
+﻿using ContactRegistry.Domain.Entities;
+using ContantRegistry.Application.Features.Commands.ContactCreate;
 using ContantRegistry.Application.Features.Commands.ContactDelete;
 using ContantRegistry.Application.Features.Commands.ContactUpdate;
 using ContantRegistry.Application.Features.Queries.GetContactById;
