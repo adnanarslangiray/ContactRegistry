@@ -1,6 +1,7 @@
 ﻿using ContactRegistery.ContactReport.Data.Interfaces;
 using ContactRegistery.ContactReport.Entities;
 using ContactRegistery.ContactReport.Repositories.Interfaces;
+using ContactRegistry.Common.Utilities;
 using MongoDB.Driver;
 
 namespace ContactRegistery.ContactReport.Repositories;
@@ -42,9 +43,15 @@ public class ReportRepository : IReportRepository
         return await _context.Reports.Find(r => r.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<IList<Report>> GetReportsAsync()
+    public async Task<BaseResponse<IList<Report>>> GetReportsAsync()
     {
-        return await _context.Reports.Find(r => true).ToListAsync();
+        var result = await _context.Reports.Find(r => true).ToListAsync();
+
+        return new BaseResponse<IList<Report>>
+        {
+            Data = result,
+            Success = true
+        };
     }
 
     public async Task<IList<ReportDetail>> GetReportDetailsByReportIdAsync(string reportId)

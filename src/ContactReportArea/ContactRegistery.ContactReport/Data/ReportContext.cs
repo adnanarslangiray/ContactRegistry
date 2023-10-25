@@ -17,7 +17,6 @@ public class ReportContext : IReportContext
         var database = client.GetDatabase(settings.DatabaseName);
 
         Reports = database.GetCollection<Report>(settings.CollectionName);
-        ReportDetails = database.GetCollection<ReportDetail>(settings.CollectionName);
-
+        ReportDetails = database.GetCollection<ReportDetail>(settings.ContactReportCollectionName);
     }
 }

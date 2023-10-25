@@ -1,10 +1,11 @@
 ﻿using ContactRegistery.ContactReport.Entities;
+using ContactRegistry.Common.Utilities;
 
 namespace ContactRegistery.ContactReport.Repositories.Interfaces;
 
 public interface IReportRepository
 {
-    Task<IList<Report>> GetReportsAsync();
+    Task<BaseResponse<IList<Report>>> GetReportsAsync();
     Task<Report> GetReportByIdAsync(string id);
     Task<Report> CreateReportAsync();
     Task<Report> UpdateReportStatusAsync(string id);
