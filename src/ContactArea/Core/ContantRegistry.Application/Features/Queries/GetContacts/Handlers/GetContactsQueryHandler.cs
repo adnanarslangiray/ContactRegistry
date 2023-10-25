@@ -1,4 +1,4 @@
-﻿using ContactRegistry.Domain.Utilities;
+﻿using ContactRegistry.Common.Utilities;
 using ContantRegistry.Application.Abstractions.Services;
 using MediatR;
 
@@ -25,6 +25,5 @@ public class GetContactsQueryHandler : IRequestHandler<GetContactsQueryRequest, 
             totalCount: result.TotalCount,
             currentPageIndex: request.Page,
             pageSize: request.Size);
-
     }
 }

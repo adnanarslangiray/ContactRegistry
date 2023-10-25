@@ -1,4 +1,4 @@
-﻿using ContactRegistry.Domain.Utilities;
+﻿using ContactRegistry.Common.Utilities;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Queries.GetContactById;

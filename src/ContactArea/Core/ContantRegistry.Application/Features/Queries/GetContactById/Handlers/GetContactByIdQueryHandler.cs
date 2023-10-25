@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContactRegistry.Domain.Utilities;
+using ContactRegistry.Common.Utilities;
 using ContantRegistry.Application.Abstractions.Services;
 using MediatR;
 
@@ -19,9 +19,9 @@ public class GetContactByIdQueryHandler : IRequestHandler<GetContactByIdQueryReq
     public async Task<BaseResponse<GetContactByIdQueryResponse>> Handle(GetContactByIdQueryRequest request, CancellationToken cancellationToken)
     {
         var result = await _contactService.GetbyIdAsync(request.Id);
-      
+
         var contact = _mapper.Map<GetContactByIdQueryResponse>(result);
 
-        return new BaseResponse<GetContactByIdQueryResponse>() { Data = contact, Success = result != null};
+        return new BaseResponse<GetContactByIdQueryResponse>() { Data = contact, Success = result != null };
     }
 }

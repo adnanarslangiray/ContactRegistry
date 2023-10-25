@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using ContactRegistry.Domain.Utilities;
-using ContantRegistry.Application.Repositories.Contact;
+﻿using ContantRegistry.Application.Repositories.Contact;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactUpdate.Handlers;
@@ -18,7 +16,6 @@ public class ContactUpdateHandler : IRequestHandler<ContactUpdateCommandRequest,
 
     public async Task<ContactUpdateCommandResponse> Handle(ContactUpdateCommandRequest request, CancellationToken cancellationToken)
     {
-
         var result = await _contactReadRepository.GetByIdAsync(request.Id);
         result.FirstName = request.FirstName;
         result.LastName =  request.LastName;

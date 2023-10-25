@@ -1,10 +1,6 @@
-﻿
+﻿using System.Text.Json.Serialization;
 
-
-
-using System.Text.Json.Serialization;
-
-namespace ContactRegistry.Domain.Utilities;
+namespace ContactRegistry.Common.Utilities;
 
 public class BaseResponse<T>
 {
