@@ -18,12 +18,12 @@ public static class ServiceRegistration
                 => options.UseNpgsql(Configurations.GetConnectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
         // repositories
-        services.AddScoped<IContactReadRepository, ContactReadRepository>();
-        services.AddScoped<IContactWriteRepository, ContactWriteRepository>();
-        services.AddScoped<IContactFeatureWriteRepository, ContactFeaturesWriteRepository>();
-        services.AddScoped<IContactFeatureReadRepository, ContactFeaturesReadRepository>();
+        services.AddSingleton<IContactReadRepository, ContactReadRepository>();
+        services.AddSingleton<IContactWriteRepository, ContactWriteRepository>();
+        services.AddSingleton<IContactFeatureWriteRepository, ContactFeaturesWriteRepository>();
+        services.AddSingleton<IContactFeatureReadRepository, ContactFeaturesReadRepository>();
 
         //services
-        services.AddScoped<IContactService, ContactService>();
+        services.AddSingleton<IContactService, ContactService>();
     }
 }

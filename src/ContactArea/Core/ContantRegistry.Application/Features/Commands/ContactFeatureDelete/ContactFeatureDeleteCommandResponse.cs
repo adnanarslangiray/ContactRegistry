@@ -1,4 +1,4 @@
-﻿using ContactRegistry.Domain.Utilities;
+﻿using ContactRegistry.Common.Utilities;
 
 namespace ContantRegistry.Application.Features.Commands.ContactFeatureDelete;
 

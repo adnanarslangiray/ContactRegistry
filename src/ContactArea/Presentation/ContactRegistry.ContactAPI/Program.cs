@@ -1,8 +1,12 @@
+using ContactRegistry.ContactAPI.Consumers;
 using ContactRegistry.ContactAPI.Extensions;
 using ContactRegistry.Persistence;
 using ContantRegistry.Application;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
+using RabbitMQEventBus;
+using RabbitMQEventBus.Producer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,42 @@ builder.Services.AddApiVersioning(opt =>
                                                     new MediaTypeApiVersionReader("x-api-version"));
 });
 
+//RabbitMQ
+
+#region RabbitMQ MessageBroker
+
+builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+{
+    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+    var factory = new ConnectionFactory()
+    {
+        HostName = builder.Configuration["EventBus:HostName"]
+    };
+
+    if (!string.IsNullOrEmpty(builder.Configuration["EventBus:UserName"]))
+    {
+        factory.UserName = builder.Configuration["EventBus:UserName"];
+    }
+
+    if (!string.IsNullOrEmpty(builder.Configuration["EventBus:Password"]))
+    {
+        factory.Password = builder.Configuration["EventBus:Password"];
+    }
+
+    var retryCount = 5;
+    if (!string.IsNullOrEmpty(builder.Configuration["EventBus:RetryCount"]))
+    {
+        retryCount = int.Parse(builder.Configuration["EventBus:RetryCount"]);
+    }
+
+    return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
+}
+);
+builder.Services.AddSingleton<RabbitMQEventBusProducer>();
+builder.Services.AddSingleton<ReportPreparationEventBusConsumer>();
+
+#endregion RabbitMQ MessageBroker
+
 SwaggerConfigure(builder.Services);
 
 builder.Services.AddControllers();
@@ -30,6 +70,8 @@ var app = builder.Build();
 app.MigrateDatabase();
 
 // Configure the HTTP request pipeline.
+//eventbus listener rabbitmq
+app.UseEventBusListener();
 
 if (app.Environment.IsDevelopment())
 {

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\ContactRegistry.Common\ContactRegistry.Common.csproj" />
     <ProjectReference Include="..\ContactRegistery.Domain\ContactRegistry.Domain.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
-﻿using ContactRegistry.Domain.Utilities;
+﻿using ContactRegistry.Common.Utilities;
 
 namespace ContantRegistry.Application.Features.Commands.ContactCreate;
 
-public class ContactCreateCommandResponse :BaseResponse
+public class ContactCreateCommandResponse : BaseResponse
 {
 }

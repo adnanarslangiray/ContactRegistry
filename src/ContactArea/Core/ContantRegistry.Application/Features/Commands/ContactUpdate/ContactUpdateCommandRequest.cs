@@ -1,5 +1,4 @@
-﻿using ContactRegistry.Domain.Utilities;
-using MediatR;
+﻿using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactUpdate;
 
