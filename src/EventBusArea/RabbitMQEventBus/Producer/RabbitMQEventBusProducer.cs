@@ -13,9 +13,9 @@ public class RabbitMQEventBusProducer
 {
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly ILogger<RabbitMQEventBusProducer> _logger;
-    private readonly int _retryCount;
+    private readonly int? _retryCount;
 
-    public RabbitMQEventBusProducer(ILogger<RabbitMQEventBusProducer> logger, IRabbitMQPersistentConnection persistentConnection, int retryCount)
+    public RabbitMQEventBusProducer(ILogger<RabbitMQEventBusProducer> logger, IRabbitMQPersistentConnection persistentConnection, int? retryCount = 5)
     {
         _logger=logger;
         _persistentConnection=persistentConnection;
@@ -30,7 +30,7 @@ public class RabbitMQEventBusProducer
         //polling policy
         var policy = RetryPolicy.Handle<SocketException>()
                     .Or<BrokerUnreachableException>()
-                    .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+                    .WaitAndRetry((int)_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                     {
                         _logger.LogWarning(ex.ToString());
                     });
@@ -49,7 +49,7 @@ public class RabbitMQEventBusProducer
             properties.Persistent = true;
             properties.DeliveryMode = 2; // persistent
             channel.ConfirmSelect();
-            channel.BasicPublish(exchange: "", routingKey: eventName, mandatory: true, basicProperties: properties, body: body);
+            channel.BasicPublish(exchange: "", routingKey: queueName, mandatory: true, basicProperties: properties, body: body);
             channel.WaitForConfirmsOrDie();
             channel.BasicAcks += (sender, eventArgs) =>
             {

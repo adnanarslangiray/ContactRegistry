@@ -1,4 +1,4 @@
-﻿namespace ContactRegistery.ContactReport.Settings;
+﻿namespace ContactRegistry.ContactReport.Settings;
 
 public class ContactReportDatabaseSetting : IContactReportDatabaseSetting
 {

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ContactRegistery.ContactReport.Entities.Common;
+namespace ContactRegistry.ContactReport.Entities.Common;
 
 public class BaseEntity
 {

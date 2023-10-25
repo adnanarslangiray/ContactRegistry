@@ -12,6 +12,6 @@ public class ContactMappingProfile : Profile
     {
         CreateMap<Contact, ContactCreateCommandRequest>().ReverseMap();
         CreateMap<ContactFeature, ContactFeatureCreateCommandRequest>().ReverseMap();
-        CreateMap<Contact,GetContactByIdQueryResponse>().ReverseMap();
+        CreateMap<Contact, GetContactByIdQueryResponse>().ReverseMap();
     }
 }

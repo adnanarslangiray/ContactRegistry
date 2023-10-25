@@ -16,11 +16,11 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     private bool _disposed;
     private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
 
-    public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, IConnection connection, ILogger<DefaultRabbitMQPersistentConnection> logger)
+    public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, int retryCount, ILogger<DefaultRabbitMQPersistentConnection> logger)
     {
         _connectionFactory=connectionFactory;
-        _connection=connection;
         _logger=logger;
+        _retryCount=retryCount;
     }
 
     public bool IsConnected => _connection != null && _connection.IsOpen && _disposed == false;

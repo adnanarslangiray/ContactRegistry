@@ -27,13 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBusArea", "EventBusAre
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContactReportArea", "ContactReportArea", "{DDA9D60F-F8E1-4A95-B2C3-22341F7C64E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistery.ContactReport", "Src\ContactReportArea\ContactRegistery.ContactReport\ContactRegistery.ContactReport.csproj", "{C4E49B9F-0903-43F3-BB71-55323FD25E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.ContactReport", "Src\ContactReportArea\ContactRegistery.ContactReport\ContactRegistry.ContactReport.csproj", "{C4E49B9F-0903-43F3-BB71-55323FD25E53}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQEventBus", "src\EventBusArea\RabbitMQEventBus\RabbitMQEventBus.csproj", "{234C67DE-D6A6-4BA0-8DCA-09B79C015C20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{759DE581-9D7E-42A5-946C-AA44F6FA064A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactRegistry.Common", "Src\Common\ContactRegistry.Common\ContactRegistry.Common.csproj", "{E8C57AB4-54D9-466E-8143-6389351B7525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.Common", "Src\Common\ContactRegistry.Common\ContactRegistry.Common.csproj", "{E8C57AB4-54D9-466E-8143-6389351B7525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

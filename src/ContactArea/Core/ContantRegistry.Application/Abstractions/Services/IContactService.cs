@@ -7,4 +7,5 @@ public interface IContactService
 {
     Task<Contact> GetbyIdAsync(string id);
     Task<ContactList> GetAllAsync(int page, int size);
+    Task<ContactCreateList> PrepareContactReport();
 }

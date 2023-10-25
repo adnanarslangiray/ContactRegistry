@@ -1,7 +1,7 @@
-﻿using ContactRegistery.ContactReport.Entities;
+﻿using ContactRegistry.ContactReport.Entities;
 using MongoDB.Driver;
 
-namespace ContactRegistery.ContactReport.Data.Interfaces;
+namespace ContactRegistry.ContactReport.Data.Interfaces;
 
 public interface IReportContext
 {

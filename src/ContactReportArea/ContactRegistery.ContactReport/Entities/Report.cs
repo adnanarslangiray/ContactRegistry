@@ -1,6 +1,6 @@
-﻿using ContactRegistery.ContactReport.Entities.Common;
+﻿using ContactRegistry.ContactReport.Entities.Common;
 
-namespace ContactRegistery.ContactReport.Entities;
+namespace ContactRegistry.ContactReport.Entities;
 
 public class Report : BaseEntity
 {

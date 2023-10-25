@@ -1,8 +1,8 @@
-﻿using ContactRegistery.ContactReport.Entities.Common;
+﻿using ContactRegistry.ContactReport.Entities.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ContactRegistery.ContactReport.Entities;
+namespace ContactRegistry.ContactReport.Entities;
 
 public class ReportDetail : BaseEntity
 {

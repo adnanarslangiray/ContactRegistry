@@ -2,6 +2,7 @@
 
 namespace RabbitMQEventBus.Events;
 
-public class ContactReportEvent : IEvent
+public class ReportRequestEvent : IEvent
 {
+    public string ReportId { get; set; }
 }
