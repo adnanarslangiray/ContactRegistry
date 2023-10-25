@@ -21,6 +21,7 @@ public class ContactUpdateHandler : IRequestHandler<ContactUpdateCommandRequest,
         result.LastName =  request.LastName;
         result.Company = request.Company;
         _contactWriteRepository.Update(result);
+
         var response = await _contactWriteRepository.SaveAsync();
 
         return new ContactUpdateCommandResponse() { Success = true, Message = "Contact Uptaded" };
