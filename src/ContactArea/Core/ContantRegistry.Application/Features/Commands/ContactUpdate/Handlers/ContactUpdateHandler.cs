@@ -23,6 +23,6 @@ public class ContactUpdateHandler : IRequestHandler<ContactUpdateCommandRequest,
         _contactWriteRepository.Update(result);
         var response = await _contactWriteRepository.SaveAsync();
 
-        return new ContactUpdateCommandResponse() { Success = response == 1, Message = response == 1 ? "Contact Uptaded" : "Failed" };
+        return new ContactUpdateCommandResponse() { Success = true, Message = "Contact Uptaded" };
     }
 }
