@@ -6,16 +6,17 @@ using ContantRegistry.Application.Abstractions.Services;
 using ContantRegistry.Application.Repositories.Contact;
 using ContantRegistry.Application.Repositories.ContactFeature;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ContactRegistry.Persistence;
 
 public static class ServiceRegistration
 {
-    public static void AddPersistenceServices(this IServiceCollection services)
+    public static void AddPersistenceServices(this IServiceCollection services,IConfiguration configuration)
     {
         services.AddDbContext<ContactDbContext>(options
-                => options.UseNpgsql(Configurations.GetConnectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
+                => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
         // repositories
         services.AddSingleton<IContactReadRepository, ContactReadRepository>();

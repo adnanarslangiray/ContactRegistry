@@ -1,0 +1,78 @@
+version: '3.4'
+
+services:
+  contactregistry.apigateway:
+    container_name: contactregistryapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:80"
+    depends_on:
+     - contactregistry.contactreport
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+   
+  contactregistry.contactapi:
+    container_name: contactregistrycontactapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:PostgreSQL=Server=c_contactdb;Port=5432;Database=contactdb;User Id=postgres;Password=123456"
+      - "EventBus:HostName=c_rabbitmq" 
+    depends_on:
+      - s_contactdb
+      - s_rabbitmq
+    ports:
+      - "8002:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  contactregistry.contactreport:
+    container_name: contactregistrycontactreport
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ContactReportDatabaseSetting:ConnectionString=mongodb://c_contactreportdb:27017"
+      - "EventBus:HostName=c_rabbitmq"  
+     
+    depends_on:
+      - s_contactreportdb
+      - s_rabbitmq
+    ports:
+      - "8001:80"
+
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+      # - ${WEBAPP_STORAGE_HOME}/data/mongodb:/data/db}
+  s_contactreportdb:
+     volumes:
+       - ${HOME}/site:/data/db
+     restart: always
+     ports:
+       - "27017:27017"
+
+  s_contactdb:
+     environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=123456
+       - POSTGRES_DB=contactdb
+
+     restart: unless-stopped
+     ports:
+       - "5432:5432"
+
+  s_rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    
+    
+
+
+    
