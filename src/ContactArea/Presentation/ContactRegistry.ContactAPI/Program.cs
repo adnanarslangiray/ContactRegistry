@@ -14,7 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
 // versioning
 builder.Services.AddApiVersioning(opt =>
 {
@@ -51,7 +58,8 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     var retryCount = 5;
     if (!string.IsNullOrEmpty(builder.Configuration["EventBus:RetryCount"]))
     {
-        retryCount = int.Parse(builder.Configuration["EventBus:RetryCount"]);
+        if (int.TryParse(builder.Configuration["EventBus:RetryCount"], out var retryCountt))
+            retryCount = retryCountt;
     }
 
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
@@ -79,10 +87,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors("CorsPolicy");
 app.MapControllers();
 
 app.Run();

@@ -18,7 +18,7 @@ builder.Services.AddOcelot();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.SetIsOriginAllowed((host) => true)
+        builder => builder/*.SetIsOriginAllowed((host) => true)*/
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());

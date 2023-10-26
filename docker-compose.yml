@@ -1,13 +1,18 @@
 version: '3.4'
 
 services:
-  
-
   contactregistry.apigateway:
     image: ${DOCKER_REGISTRY-}contactregistryapigateway
     build:
       context: .
       dockerfile: src/ApiGateway/ContactRegistry.ApiGateway/Dockerfile
+
+  contactregistry.contactapi:
+    image: ${DOCKER_REGISTRY-}contactregistrycontactapi
+    build:
+      context: .
+      dockerfile: src/ContactArea/Presentation/ContactRegistry.ContactAPI/Dockerfile
+
 
   contactregistry.contactreport:
     image: ${DOCKER_REGISTRY-}contactregistrycontactreport
@@ -26,10 +31,3 @@ services:
   s_rabbitmq:
     container_name: c_rabbitmq
     image: rabbitmq:3-management
-
-  contactregistry.contactapi:
-    image: ${DOCKER_REGISTRY-}contactregistrycontactapi
-    build:
-      context: .
-      dockerfile: src/ContactArea/Presentation/ContactRegistry.ContactAPI/Dockerfile
-

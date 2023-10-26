@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "http": {
+    "ContactRegistry.ContactAPI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
@@ -10,16 +10,16 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5010"
     },
-    "https": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7067;http://localhost:5010"
-    },
+    //"https": {
+    //  "commandName": "Project",
+    //  "launchBrowser": true,
+    //  "launchUrl": "swagger",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  },
+    //  "dotnetRunMessages": true,
+    //  "applicationUrl": "https://localhost:7067;http://localhost:5010"
+    //},
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
@@ -27,7 +27,8 @@
       "environmentVariables": {
         "ASPNETCORE_URLS": "http://+:80"
       },
-      "publishAllPorts": true
+      "publishAllPorts": true,
+      "useSSL": true
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"

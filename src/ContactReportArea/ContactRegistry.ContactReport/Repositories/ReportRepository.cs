@@ -65,6 +65,7 @@ public class ReportRepository : IReportRepository
 
     public async Task CreateReportDetailsAsync(IList<ReportDetail> reportDetails)
     {
+
         await _context.ReportDetails.InsertManyAsync(reportDetails);
     }
 }

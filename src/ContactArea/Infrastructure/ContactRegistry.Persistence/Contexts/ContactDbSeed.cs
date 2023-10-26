@@ -21,15 +21,28 @@ public class ContactDbSeed
             LastName = "Arslangiray",
             Company = "FreeCodeCamp"
         };
-        List<ContactFeature> features = new()
+        List<ContactFeature> features = new();
+        features.AddRange(new List<ContactFeature>
         {
             new ContactFeature()
             {
-            ContactFeatureType = ContactFeatureType.Phone,
-            ContactFeatureValue = "5555555555",
-            ContactId = contact.Id
+                ContactFeatureType = ContactFeatureType.Phone,
+                ContactFeatureValue = "5555555555",
+                ContactId = contact.Id
+            },
+            new ContactFeature()
+            {
+                ContactFeatureType = ContactFeatureType.Location,
+                ContactFeatureValue = "İstanbul",
+                ContactId = contact.Id
+            },
+            new ContactFeature()
+            {
+                ContactFeatureType = ContactFeatureType.Email,
+                ContactFeatureValue = "adnan.arslangiray@gmail.com",
+                ContactId = contact.Id
             }
-        };
+        });
         contact.ContactFeatures = features;
         yield return contact;
     }

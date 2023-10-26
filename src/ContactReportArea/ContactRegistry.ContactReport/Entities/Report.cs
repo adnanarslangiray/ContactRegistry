@@ -9,6 +9,7 @@ public class Report : BaseEntity
     public enum ReportStatus
     {
         Preparing = 1,
-        Completed = 2
+        Completed = 2,
+        Failed = 3
     }
 }

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "http": {
+    "ContactRegistry.ApiGateway": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

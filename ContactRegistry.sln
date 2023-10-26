@@ -35,11 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.Common", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{0DA3CD53-D46F-4CCF-9155-8A9AAD1DF4A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactRegistry.ApiGateway", "src\ApiGateway\ContactRegistry.ApiGateway\ContactRegistry.ApiGateway.csproj", "{CC0CEC9C-6AE4-4F4E-8F03-65E762A0ACDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.ApiGateway", "src\ApiGateway\ContactRegistry.ApiGateway\ContactRegistry.ApiGateway.csproj", "{CC0CEC9C-6AE4-4F4E-8F03-65E762A0ACDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactRegistry.ContactReport", "Src\ContactReportArea\ContactRegistry.ContactReport\ContactRegistry.ContactReport.csproj", "{D9BCDB1B-36C1-45A0-B187-E3514F38E690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactRegistry.ContactReport", "Src\ContactReportArea\ContactRegistry.ContactReport\ContactRegistry.ContactReport.csproj", "{D9BCDB1B-36C1-45A0-B187-E3514F38E690}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7C4CA709-09E6-4DB3-B7A2-607FC2A2D322}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DCC75330-6B6D-4090-8295-E58D4CD4BEBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +83,10 @@ Global
 		{D9BCDB1B-36C1-45A0-B187-E3514F38E690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9BCDB1B-36C1-45A0-B187-E3514F38E690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9BCDB1B-36C1-45A0-B187-E3514F38E690}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C4CA709-09E6-4DB3-B7A2-607FC2A2D322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C4CA709-09E6-4DB3-B7A2-607FC2A2D322}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C4CA709-09E6-4DB3-B7A2-607FC2A2D322}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C4CA709-09E6-4DB3-B7A2-607FC2A2D322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC75330-6B6D-4090-8295-E58D4CD4BEBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC75330-6B6D-4090-8295-E58D4CD4BEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC75330-6B6D-4090-8295-E58D4CD4BEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC75330-6B6D-4090-8295-E58D4CD4BEBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

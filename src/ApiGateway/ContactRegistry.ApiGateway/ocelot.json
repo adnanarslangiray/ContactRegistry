@@ -5,12 +5,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactapi",
+          "Host": "contactregistry.contactapi",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/contacts",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "UpstreamScheme": "http"
 
     },
@@ -19,12 +19,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactapi",
+          "Host": "contactregistry.contactapi",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/contacts/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "UpstreamScheme": "http"
     },
     {
@@ -32,12 +32,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactapi",
+          "Host": "contactregistry.contactapi",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/contact-features",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "UpstreamScheme": "http"
     },
     {
@@ -45,12 +45,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactapi",
+          "Host": "contactregistry.contactapi",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/contact-features/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
       "UpstreamScheme": "http"
     },
 
@@ -60,12 +60,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactreport",
+          "Host": "contactregistry.contactreport",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/reports",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "UpstreamScheme": "http"
 
     },
@@ -74,12 +74,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactreport",
+          "Host": "contactregistry.contactreport",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/reports/{id",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "UpstreamScheme": "http"
     },
     {
@@ -87,12 +87,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactreport",
+          "Host": "contactregistry.contactreport",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/report-details",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "UpstreamScheme": "http"
 
     },
@@ -101,12 +101,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactreport",
+          "Host": "contactregistry.contactreport",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/report-details{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "UpstreamScheme": "http"
     }
 

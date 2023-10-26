@@ -52,6 +52,11 @@ public class ReportCreateEventBusConsumer
         var report = await _reportRepository.GetReportByIdAsync(createEvent.ReportId);
         if (report is null)
             return;
+        if (createEvent.ReportDetails.Count == 0)
+        {
+            await _reportRepository.UpdateReportStatusAsync(createEvent.ReportId, Report.ReportStatus.Completed);//failed verilebilir!
+            return;
+        }
 
         IList<ReportDetail> detailData = createEvent.ReportDetails
             .Select(x => new ReportDetail() { ReportId =createEvent.ReportId, ContactCount = x.ContactCount, Location = x.Location, PhoneNumberCount = x.PhoneNumberCount })

@@ -21,7 +21,14 @@ builder.Services.Configure<ContactReportDatabaseSetting>(builder.Configuration.G
 builder.Services.AddSingleton<IContactReportDatabaseSetting>(sp => sp.GetRequiredService<IOptions<ContactReportDatabaseSetting>>().Value);
 builder.Services.AddTransient<IReportContext, ReportContext>();
 builder.Services.AddTransient<IReportRepository, ReportRepository>();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder/*.SetIsOriginAllowed((host) => true)*/
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
 //RabbitMQ
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 {
@@ -44,7 +51,8 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     var retryCount = 5;
     if (!string.IsNullOrEmpty(builder.Configuration["EventBus:RetryCount"]))
     {
-        retryCount = int.Parse(builder.Configuration["EventBus:RetryCount"]);
+        if (int.TryParse(builder.Configuration["EventBus:RetryCount"], out var retryCountt))
+            retryCount = retryCountt;
     }
 
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
@@ -69,10 +77,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors("CorsPolicy");
 app.MapControllers();
 
 app.Run();
