@@ -1,6 +1,6 @@
-using ContactRegistry.ContactReport.Consumers;
 using ContactRegistry.ContactReport.Data;
 using ContactRegistry.ContactReport.Data.Interfaces;
+using ContactRegistry.ContactReport.EventBusHelpers.Consumers;
 using ContactRegistry.ContactReport.Extensions;
 using ContactRegistry.ContactReport.Repositories;
 using ContactRegistry.ContactReport.Repositories.Interfaces;

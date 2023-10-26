@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+  #Apigateway
   contactregistry.apigateway:
     container_name: contactregistryapigateway
     environment:
@@ -13,6 +14,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
    
+  #ContactAPI
   contactregistry.contactapi:
     container_name: contactregistrycontactapi
     environment:
@@ -29,6 +31,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
+  #ContactReportAPI
   contactregistry.contactreport:
     container_name: contactregistrycontactreport
     environment:
@@ -47,8 +50,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-
-      # - ${WEBAPP_STORAGE_HOME}/data/mongodb:/data/db}
+  #Databases
   s_contactreportdb:
      volumes:
        - ${HOME}/site:/data/db
@@ -66,6 +68,7 @@ services:
      ports:
        - "5432:5432"
 
+  #RabbitMQ
   s_rabbitmq:
     ports:
       - "5672:5672"

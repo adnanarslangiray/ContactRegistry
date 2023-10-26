@@ -1,4 +1,4 @@
-using ContactRegistry.ContactAPI.Consumers;
+using ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
 using ContactRegistry.ContactAPI.Extensions;
 using ContactRegistry.Persistence;
 using ContantRegistry.Application;

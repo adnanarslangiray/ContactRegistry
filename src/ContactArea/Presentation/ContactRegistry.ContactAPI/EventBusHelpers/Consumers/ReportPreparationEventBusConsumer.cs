@@ -8,7 +8,7 @@ using RabbitMQEventBus.Events;
 using RabbitMQEventBus.Producer;
 using System.Text;
 
-namespace ContactRegistry.ContactAPI.Consumers;
+namespace ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
 
 public class ReportPreparationEventBusConsumer
 {
@@ -18,9 +18,9 @@ public class ReportPreparationEventBusConsumer
 
     public ReportPreparationEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IContactService contactService, RabbitMQEventBusProducer eventBus)
     {
-        _persistentConnection=persistentConnection;
-        _contactService=contactService;
-        _eventBus=eventBus;
+        _persistentConnection = persistentConnection;
+        _contactService = contactService;
+        _eventBus = eventBus;
     }
 
     public void Consume()
@@ -32,7 +32,7 @@ public class ReportPreparationEventBusConsumer
         channel.QueueDeclare(queue: EventConstants.ContactReportQueue, durable: true, false, false, null);
         var consumer = new EventingBasicConsumer(channel);
 
-        consumer.Received +=Consumer_Received;
+        consumer.Received += Consumer_Received;
         channel.BasicConsume(EventConstants.ContactReportQueue, true, consumer);
     }
 

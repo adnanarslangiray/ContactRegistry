@@ -8,7 +8,7 @@ using RabbitMQEventBus.Core;
 using RabbitMQEventBus.Events;
 using System.Text;
 
-namespace ContactRegistry.ContactReport.Consumers;
+namespace ContactRegistry.ContactReport.EventBusHelpers.Consumers;
 
 public class ReportCreateEventBusConsumer
 {
@@ -54,7 +54,7 @@ public class ReportCreateEventBusConsumer
             return;
 
         IList<ReportDetail> detailData = createEvent.ReportDetails
-            .Select(x => new ReportDetail() { ReportId =createEvent.ReportId, ContactCount = x.ContactCount, Location = x.Location ,PhoneNumberCount = x.PhoneNumberCount })
+            .Select(x => new ReportDetail() { ReportId =createEvent.ReportId, ContactCount = x.ContactCount, Location = x.Location, PhoneNumberCount = x.PhoneNumberCount })
             .ToList();
 
         await _reportRepository.CreateReportDetailsAsync(detailData);

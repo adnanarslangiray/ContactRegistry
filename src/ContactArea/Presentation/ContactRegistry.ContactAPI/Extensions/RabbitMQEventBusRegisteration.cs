@@ -1,4 +1,4 @@
-﻿using ContactRegistry.ContactAPI.Consumers;
+﻿using ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ContactRegistry.ContactAPI.Extensions;
