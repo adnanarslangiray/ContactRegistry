@@ -1,5 +1,6 @@
 # Rehber Kaydı ve Raporlaması
-Birbirleriyle Meseaj broker aracılığıyla haberleşebilen microservis yapısı inşa edilmiştir.
+Rehbere kişi adı soyadı ve lokasyon bilgisini kaydedip istenildiğinde raporlamasını sağlanmıştır\
+Birbirleriyle Mesaj broker aracılığıyla haberleşebilen microservis yapısı inşa edilmiştir.
 ## Çalıştırma 
 `docker compose up` : Bu komutla projeyi docker aracılığıyla ayağa kaldırabilirsiniz.\
 `docker compose down` : Çalışan projeyi durdurup containerları silebilirsiniz
