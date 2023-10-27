@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>dcc75330-6b6d-4090-8295-e58d4cd4bebf</ProjectGuid>
+    <ProjectGuid>726f03cd-d668-4034-86ac-2b94d3169aa6</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>contactregistry.apigateway</DockerServiceName>
