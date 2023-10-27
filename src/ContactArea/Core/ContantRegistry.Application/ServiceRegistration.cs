@@ -2,6 +2,7 @@
 using ContantRegistry.Application.PipelineBehaviours;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -11,7 +12,7 @@ namespace ContantRegistry.Application;
 
 public static class ServiceRegistration
 {
-    public static void AddApplicationServices(this IServiceCollection services)
+    public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(cfg =>
                             cfg.RegisterServicesFromAssembly(typeof(ServiceRegistration).Assembly));

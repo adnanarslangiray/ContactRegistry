@@ -1,15 +1,14 @@
-﻿using ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
-using Microsoft.Extensions.DependencyInjection;
+﻿using ContactRegistry.ContactReport.EventBusHelpers.Consumers;
 
-namespace ContactRegistry.ContactAPI.Extensions;
+namespace ContactRegistry.ContactReport.Extensions;
 
 public static class RabbitMQEventBusRegisteration
 {
-    public static ReportPreparationEventBusConsumer Listener { get; set; }
+    public static ReportCreateEventBusConsumer Listener { get; set; }
 
     public static IApplicationBuilder UseEventBusListener(this IApplicationBuilder app)
     {
-        Listener = app.ApplicationServices.GetService<ReportPreparationEventBusConsumer>();
+        Listener = app.ApplicationServices.GetService<ReportCreateEventBusConsumer>();
         var life = app.ApplicationServices.GetService<IHostApplicationLifetime>();
 
         life.ApplicationStarted.Register(OnStarted);
@@ -23,6 +22,6 @@ public static class RabbitMQEventBusRegisteration
     }
     private static void OnStopping()
     {
-           Listener.Disconnect();
+        Listener.Disconnect();
     }
 }

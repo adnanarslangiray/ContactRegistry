@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  #Apigateway
+  contactregistry.apigateway:
+    container_name: contactregistryapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+ #ContactAPI
+  contactregistry.contactapi:
+    container_name: contactregistrycontactapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings:PostgreSQL=Server=c_contactdb;Port=5432;Database=contactdb;User Id=postgres;Password=123456"
+      - "EventBus:HostName=c_rabbitmq"
+    depends_on:
+      - s_rabbitmq
+      - s_contactdb
+    ports:
+      - "8002:80"
+    restart: on-failure
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #ContactReportAPI
+  contactregistry.contactreport:
+    container_name: contactregistrycontactreport
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ContactReportDatabaseSetting:ConnectionString=mongodb://c_contactreportdb:27017"
+      - "EventBus:HostName=c_rabbitmq"
+    depends_on:
+      - s_rabbitmq
+      - s_contactreportdb
+    ports:
+      - "8001:80"
+
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  #Databases
+  s_contactreportdb:
+   
+     restart: always
+     ports:
+       - "27017:27017"
+
+  s_contactdb:
+     environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=123456
+       - POSTGRES_DB=contactdb
+
+     # restart: unless-stopped
+     ports:
+       - "5432:5432"
+
+  #RabbitMQ
+  s_rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always

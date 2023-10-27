@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "contactregistry.apigateway": "StartDebugging",
+        "contactregistry.contactapi": "StartDebugging",
+        "contactregistry.contactreport": "StartDebugging"
+      }
+    }
+  }
+}

@@ -1,8 +1,11 @@
-using ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
-using ContactRegistry.ContactAPI.Extensions;
-using ContactRegistry.Persistence;
-using ContantRegistry.Application;
-using Microsoft.AspNetCore.Mvc.Versioning;
+using ContactRegistry.ContactReport.Data;
+using ContactRegistry.ContactReport.Data.Interfaces;
+using ContactRegistry.ContactReport.EventBusHelpers.Consumers;
+using ContactRegistry.ContactReport.Extensions;
+using ContactRegistry.ContactReport.Repositories;
+using ContactRegistry.ContactReport.Repositories.Interfaces;
+using ContactRegistry.ContactReport.Settings;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
@@ -12,31 +15,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddControllers();
+
+builder.Services.Configure<ContactReportDatabaseSetting>(builder.Configuration.GetSection(nameof(ContactReportDatabaseSetting)));
+builder.Services.AddSingleton<IContactReportDatabaseSetting>(sp => sp.GetRequiredService<IOptions<ContactReportDatabaseSetting>>().Value);
+builder.Services.AddTransient<IReportContext, ReportContext>();
+builder.Services.AddTransient<IReportRepository, ReportRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder
+        builder => builder/*.SetIsOriginAllowed((host) => true)*/
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
 });
-// versioning
-builder.Services.AddApiVersioning(opt =>
-{
-    opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-    opt.AssumeDefaultVersionWhenUnspecified = true;
-    opt.ReportApiVersions = true;
-    opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
-                                                    new HeaderApiVersionReader("x-api-version"),
-                                                    new MediaTypeApiVersionReader("x-api-version"));
-});
-
 //RabbitMQ
-
-#region RabbitMQ MessageBroker
-
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
@@ -65,17 +58,14 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
 }
 );
-builder.Services.AddSingleton<IRabbitMQEventBusProducer,RabbitMQEventBusProducer>();
-builder.Services.AddSingleton<ReportPreparationEventBusConsumer>();
-
-#endregion RabbitMQ MessageBroker
+builder.Services.AddSingleton<IRabbitMQEventBusProducer, RabbitMQEventBusProducer>();
+builder.Services.AddSingleton<ReportCreateEventBusConsumer>();
 
 SwaggerConfigure(builder.Services);
 
-builder.Services.AddControllers();
-
 var app = builder.Build();
-app.MigrateDatabase();
+
+// Configure the HTTP request pipeline.
 
 // Configure the HTTP request pipeline.
 //eventbus listener rabbitmq
@@ -101,7 +91,7 @@ static void SwaggerConfigure(IServiceCollection serviceCollection)
     {
         c.SwaggerDoc("v1", new OpenApiInfo
         {
-            Title = "Contact API Documentation",
+            Title = "Contact Report API Documentation",
             Version = "v1",
             Contact = new OpenApiContact()
             {
