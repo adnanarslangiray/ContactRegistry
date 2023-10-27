@@ -14,9 +14,9 @@ public class ReportPreparationEventBusConsumer
 {
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly IContactService _contactService;
-    private readonly RabbitMQEventBusProducer _eventBus;
+    private readonly IRabbitMQEventBusProducer _eventBus;
 
-    public ReportPreparationEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IContactService contactService, RabbitMQEventBusProducer eventBus)
+    public ReportPreparationEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IContactService contactService, IRabbitMQEventBusProducer eventBus)
     {
         _persistentConnection = persistentConnection;
         _contactService = contactService;

@@ -13,12 +13,14 @@ public class ContactReportsTest
 {
     private readonly Mock<IReportRepository> _reportRepositoryMock;
     private readonly ReportsController _reportsController;
-    private readonly Mock<RabbitMQEventBusProducer> _eventBus;
+    private readonly Mock<IRabbitMQEventBusProducer> _eventBus;
     private const string PreparingReportId = "6009cb85e65f6dce28fb3e51";
     private const string ComplatedReportId = "507f1f77bcf86cd799439011";
     public ContactReportsTest()
     {
-        _reportsController= new ReportsController(_reportRepositoryMock.Object, _eventBus.Object);
+        _reportRepositoryMock = new();
+        _eventBus =new Mock<IRabbitMQEventBusProducer>();
+        _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object);
         _reportRepositoryMock= new Mock<IReportRepository>();
     }
 

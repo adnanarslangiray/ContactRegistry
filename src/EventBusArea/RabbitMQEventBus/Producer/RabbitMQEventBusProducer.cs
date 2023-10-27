@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RabbitMQEventBus.Producer;
 
-public class RabbitMQEventBusProducer
+public class RabbitMQEventBusProducer : IRabbitMQEventBusProducer
 {
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly ILogger<RabbitMQEventBusProducer> _logger;

@@ -13,9 +13,9 @@ public class ReportsController : ControllerBase
 {
 
     private readonly IReportRepository _reportService;
-    private readonly RabbitMQEventBusProducer _eventBus;
+    private readonly IRabbitMQEventBusProducer _eventBus;
 
-    public ReportsController(IReportRepository reportService, RabbitMQEventBusProducer eventBus)
+    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus)
     {
         _reportService = reportService;
         _eventBus=eventBus;

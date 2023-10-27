@@ -58,7 +58,7 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
 }
 );
-builder.Services.AddSingleton<RabbitMQEventBusProducer>();
+builder.Services.AddSingleton<IRabbitMQEventBusProducer, RabbitMQEventBusProducer>();
 builder.Services.AddSingleton<ReportCreateEventBusConsumer>();
 
 SwaggerConfigure(builder.Services);
