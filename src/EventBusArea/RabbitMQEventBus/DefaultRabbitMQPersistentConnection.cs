@@ -15,6 +15,7 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     private readonly int _retryCount;
     private bool _disposed;
     private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
+    private object LockObject = new();
 
     public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, int retryCount, ILogger<DefaultRabbitMQPersistentConnection> logger)
     {
@@ -52,29 +53,32 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
 
     public bool TryConnect()
     {
-        _logger.LogInformation("RabbitMQ Client is trying to connect");
-        var policy = RetryPolicy.Handle<SocketException>()
-            .Or<BrokerUnreachableException>()
-            .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+        lock (LockObject)
+        {
+            _logger.LogInformation("RabbitMQ Client is trying to connect");
+            var policy = RetryPolicy.Handle<SocketException>()
+                .Or<BrokerUnreachableException>()
+                .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+                {
+                    _logger.LogWarning(ex.ToString());
+                });
+
+            policy.Execute(() => { _connection = _connectionFactory.CreateConnection(); });
+
+            if (IsConnected)
             {
-                _logger.LogWarning(ex.ToString());
-            });
+                _connection.ConnectionShutdown += OnConnectionShutDown;
+                _connection.CallbackException += OnCallbackException;
+                _connection.ConnectionBlocked += OnConnectionBlocked;
 
-        policy.Execute(() => { _connection = _connectionFactory.CreateConnection(); });
-
-        if (IsConnected)
-        {
-            _connection.ConnectionShutdown += OnConnectionShutDown;
-            _connection.CallbackException += OnCallbackException;
-            _connection.ConnectionBlocked += OnConnectionBlocked;
-
-            _logger.LogInformation($"RabbitMQ persistent connection acquired a connection {_connection.Endpoint.HostName} and is subscribed to failure events");
-            return true;
-        }
-        else
-        {
-            _logger.LogCritical("FATAL ERROR: RabbitMQ connections could not be created and opened");
-            return false;
+                _logger.LogInformation($"RabbitMQ persistent connection acquired a connection {_connection.Endpoint.HostName} and is subscribed to failure events");
+                return true;
+            }
+            else
+            {
+                _logger.LogCritical("FATAL ERROR: RabbitMQ connections could not be created and opened");
+                return false;
+            }
         }
     }
 
