@@ -1,5 +1,4 @@
-﻿using ContactRegistry.Common.Utilities;
-using ContactRegistry.ContactReport.Data.Interfaces;
+﻿using ContactRegistry.ContactReport.Data.Interfaces;
 using ContactRegistry.ContactReport.Entities;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
 using MongoDB.Driver;
@@ -25,7 +24,7 @@ public class ReportRepository : IReportRepository
         return report;
     }
 
-    public async Task<Report> UpdateReportStatusAsync(string id , Report.ReportStatus status)
+    public async Task<Report> UpdateReportStatusAsync(string id, Report.ReportStatus status)
     {
         var filter = Builders<Report>.Filter.Eq(r => r.Id, id);
         var update = Builders<Report>.Update
@@ -43,21 +42,18 @@ public class ReportRepository : IReportRepository
         return await _context.Reports.Find(r => r.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<BaseResponse<IList<Report>>> GetReportsAsync()
+    public async Task<IList<Report>> GetReportsAsync()
     {
         var result = await _context.Reports.Find(r => true).ToListAsync();
 
-        return new BaseResponse<IList<Report>>
-        {
-            Data = result,
-            Success = true
-        };
+        return result;
     }
-    
+
     public async Task<IList<ReportDetail>> GetReportDetailsByReportIdAsync(string reportId)
     {
         return await _context.ReportDetails.Find(r => r.ReportId == reportId).ToListAsync();
     }
+
     public async Task<IList<ReportDetail>> GetReportDetailsAsync()
     {
         return await _context.ReportDetails.Find(r => true).ToListAsync();
@@ -65,7 +61,6 @@ public class ReportRepository : IReportRepository
 
     public async Task CreateReportDetailsAsync(IList<ReportDetail> reportDetails)
     {
-
         await _context.ReportDetails.InsertManyAsync(reportDetails);
     }
 }

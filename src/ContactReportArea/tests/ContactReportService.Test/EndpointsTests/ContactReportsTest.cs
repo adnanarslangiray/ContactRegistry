@@ -1,7 +1,7 @@
-using ContactRegistry.Common.Utilities;
 using ContactRegistry.ContactReport.Controllers;
 using ContactRegistry.ContactReport.Entities;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RabbitMQEventBus.Producer;
@@ -16,12 +16,12 @@ public class ContactReportsTest
     private readonly Mock<IRabbitMQEventBusProducer> _eventBus;
     private const string PreparingReportId = "6009cb85e65f6dce28fb3e51";
     private const string ComplatedReportId = "507f1f77bcf86cd799439011";
+
     public ContactReportsTest()
     {
-        _reportRepositoryMock = new();
+        _reportRepositoryMock= new Mock<IReportRepository>();
         _eventBus =new Mock<IRabbitMQEventBusProducer>();
         _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object);
-        _reportRepositoryMock= new Mock<IReportRepository>();
     }
 
     //getAllReports
@@ -29,12 +29,27 @@ public class ContactReportsTest
     public async Task GetAllReports_WhenCalled_ReturnsOkResult()
     {
         // Arrange
-        _reportRepositoryMock.Setup(x => x.GetReportsAsync())
-          .Returns(Task.FromResult(GetMockReportList()));
+        _reportRepositoryMock.Setup(_ => _.GetReportsAsync())
+          .ReturnsAsync(GetMockReportList());
+
         // Act
         var result = await _reportsController.GetReports();
         // Assert
-        Assert.IsType<BaseResponse<IList<Report>>>(((ObjectResult)result).Value);
+        result.Should().BeOfType<OkObjectResult>();
+        (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+
+    [Fact]
+    public async Task GetAllReports_WhenCalled_ReturnsNoContentResult()
+    {
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.GetReportsAsync())
+          .ReturnsAsync(GetMockReportEmptyList());
+        // Act
+        var result = await _reportsController.GetReports();
+        // Assert
+        result.Should().BeOfType<NoContentResult>();
+        (result as NoContentResult).StatusCode.Should().Be(204);
     }
 
     [Fact]//createReport
@@ -47,29 +62,25 @@ public class ContactReportsTest
         // Act
         var result = await _reportsController.CreateReport();
         // Assert
-        var objResult = (ObjectResult)result;
+        var objResult = (OkObjectResult)result;
         var reportResult = (Report)objResult.Value;
         Assert.IsType<Report>(objResult.Value);
         Assert.Equal(objResult.StatusCode, (int)HttpStatusCode.OK);
-        Assert.NotNull(reportResult);
         Assert.Equal(reportResult.Id, ComplatedReportId);
     }
-
 
     [Fact]
     public async Task GetReportById_WhenCalled_ReturnsOkResult()
     {
         // Arrange
-        var id = Guid.NewGuid().ToString();
         _reportRepositoryMock.Setup(x => x.GetReportByIdAsync(It.IsAny<string>()))
-            .Returns(Task.FromResult(GetMockReportById(ComplatedReportId)));
+            .ReturnsAsync(GetMockReportById(ComplatedReportId));
         // Act
-        var result = await _reportsController.GetReportById(id);
+        var result = await _reportsController.GetReportById(ComplatedReportId);
         // result is not null
-        Assert.NotNull(result);
+        var eportResult = (Report)((OkObjectResult)result).Value;
+        Assert.NotNull(eportResult);
     }
-
-
 
     [Fact]
     public async Task GetReportDetails_WhenCalled_ReturnsOkResult()
@@ -80,18 +91,21 @@ public class ContactReportsTest
         // Act
         var result = await _reportsController.GetReportDetails();
         // Assert
-        Assert.IsType<IList<ReportDetail>>(((ObjectResult)result).Value);
+        var objResult = (OkObjectResult)result;
+        var reportResult = (IList<ReportDetail>)objResult.Value;
+        Assert.NotNull(reportResult);
     }
 
+    //Mock  Data
     private Report GetMockReportById(string id)
     {
-        var result = GetMockReportList().Data.FirstOrDefault(x => x.Id == id);
+        var result = GetMockReportList().FirstOrDefault(x => x.Id == id);
         return result;
     }
 
-    private static BaseResponse<IList<Report>> GetMockReportList()
+    private static IList<Report> GetMockReportList()
     {
-        return new BaseResponse<IList<Report>>(new List<Report>
+        return new List<Report>
         {
             new Report
             {
@@ -103,7 +117,12 @@ public class ContactReportsTest
                 Id = ComplatedReportId,
                 Status = Report.ReportStatus.Completed,
             }
-        }, true);
+        };
+    }
+
+    private static IList<Report> GetMockReportEmptyList()
+    {
+        return new List<Report>();
     }
 
     private static IList<ReportDetail> GetMockReportDetailsList()

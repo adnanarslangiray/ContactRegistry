@@ -25,10 +25,12 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReports()
     {
         var result = await _reportService.GetReportsAsync();
+        if (result?.Count == 0)
+            return NoContent();
 
         return Ok(result);
     }
-    
+
     [HttpGet("reports/{id}")]
     public async Task<IActionResult> GetReportById(string id)
     {
