@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RabbitMQEventBus.Core;
 using RabbitMQEventBus.Events;
 using RabbitMQEventBus.Producer;
+using System.Net;
 
 namespace ContactRegistry.ContactReport.Controllers;
 
@@ -50,6 +51,8 @@ public class ReportsController : ControllerBase
     }
 
     [HttpPost("reports")]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> CreateReport()
     {
         var result = await _reportService.CreateReportAsync();
@@ -63,8 +66,7 @@ public class ReportsController : ControllerBase
             }
             catch (Exception)
             {
-
-                throw;
+                return BadRequest();
 
             }
         }
