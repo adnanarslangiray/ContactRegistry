@@ -2,7 +2,7 @@
 -Rehbere kişi adı soyadı ve lokasyon bilgisini kaydedip istenildiğinde raporlamasını sağlanmıştır\
 -Birbirleriyle Mesaj broker aracılığıyla haberleşebilen microservis yapısı inşa edilmiştir.\
 -ContactAPI projesinde Onion Katmanlı mimari kullanılmıştır.CQRS pattern uygulanmıştır.
-## Çalıştırma 
+## Çalıştırma (How to Run)
 `docker compose up` : Bu komutla projeyi docker aracılığıyla ayağa kaldırabilirsiniz.\
 `docker compose down` : Çalışan projeyi durdurup containerları silebilirsiniz
 
@@ -18,6 +18,7 @@
 ### ContactAPI Endpoints
 `Swagger` :http://localhost:8002/swagger/index.html
 
-# Mimari
+# Mimari (Project Architecture)
 
-![Mimari](https://github.com/adnanarslangiray/ContactRegistry/assets/33246502/50ceb044-d23b-4237-9e19-f32df89b5053)
+
+![prjarc](https://github.com/adnanarslangiray/ContactRegistry/assets/33246502/790242ad-fe55-42e6-b682-a3fddcba88fb)
