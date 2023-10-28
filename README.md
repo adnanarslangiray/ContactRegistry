@@ -1,5 +1,5 @@
 # Rehber Kaydı ve Raporlaması
--Rehbere kişi adı soyadı ve lokasyon bilgisini kaydedip istenildiğinde raporlamasını sağlanmıştır\
+-Rehberde kişi kaydı oluşturulup kişiyle ilgili kişisel bilgileri (telefon numarası,e posta adresi vb.) kişi kaydına eklenmesi ve istenildiğinde raporlanmasını sağlanmıştır\
 -Birbirleriyle Mesaj broker aracılığıyla haberleşebilen microservis yapısı inşa edilmiştir.\
 -ContactAPI projesinde Onion Katmanlı mimari kullanılmıştır.CQRS pattern uygulanmıştır.
 ## Çalıştırma (How to Run)
