@@ -37,4 +37,5 @@ public class ContactDbContext : DbContext
 
         return await base.SaveChangesAsync(cancellationToken);
     }
+
 }

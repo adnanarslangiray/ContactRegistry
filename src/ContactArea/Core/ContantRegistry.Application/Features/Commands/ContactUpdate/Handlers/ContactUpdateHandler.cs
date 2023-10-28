@@ -1,4 +1,5 @@
-﻿using ContantRegistry.Application.Repositories.Contact;
+﻿using ContactRegistry.Domain.Entities;
+using ContantRegistry.Application.Repositories.Contact;
 using MediatR;
 
 namespace ContantRegistry.Application.Features.Commands.ContactUpdate.Handlers;
@@ -17,12 +18,17 @@ public class ContactUpdateHandler : IRequestHandler<ContactUpdateCommandRequest,
     public async Task<ContactUpdateCommandResponse> Handle(ContactUpdateCommandRequest request, CancellationToken cancellationToken)
     {
         var result = await _contactReadRepository.GetByIdAsync(request.Id);
+        _= await _contactWriteRepository.SaveAsync();
+        if (result == null)
+             return new ContactUpdateCommandResponse() { Success = false, Message = "Contact not found" };
         result.FirstName = request.FirstName;
         result.LastName =  request.LastName;
         result.Company = request.Company;
+
+
         _contactWriteRepository.Update(result);
 
-        var response = await _contactWriteRepository.SaveAsync();
+        _= await _contactWriteRepository.SaveAsync();
 
         return new ContactUpdateCommandResponse() { Success = true, Message = "Contact Uptaded" };
     }

@@ -1,5 +1,6 @@
 ﻿using ContactRegistry.Domain.Entities.Common;
 using ContactRegistry.Persistence.Contexts;
+using ContactRegistry.Persistence.Extensions;
 using ContantRegistry.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -20,7 +21,8 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
     public async Task<bool> AddAsync(T model)
     {
         EntityEntry<T> entityEntry = await Table.AddAsync(model);
-        return entityEntry.State == EntityState.Added;
+        var result = entityEntry.State == EntityState.Added;
+        return result;
     }
 
     public async Task<bool> AddRangeAsync(List<T> data)
@@ -51,6 +53,7 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
 
     public bool Update(T model)
     {
+        _context.DetachLocal(model, model.Id);
         EntityEntry<T> entityEntry = Table.Update(model);
         return entityEntry.State == EntityState.Modified;
     }

@@ -28,8 +28,9 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         }
 
         [HttpGet("contacts/{id}")]
-        public async Task<IActionResult> GetContactById([FromRoute] GetContactByIdQueryRequest request)
+        public async Task<IActionResult> GetContactById([FromRoute] string id)
         {
+            var request = new GetContactByIdQueryRequest() { Id = id }; 
             var response = await _mediator.Send(request);
 
             return Ok(response);
@@ -51,8 +52,9 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         }
 
         [HttpDelete("contacts/{id}")]
-        public async Task<IActionResult> DeleteContact([FromRoute] ContactDeleteCommandRequest request)
+        public async Task<IActionResult> DeleteContact([FromRoute] string id)
         {
+            var request = new ContactDeleteCommandRequest() { Id = id };
             var response = await _mediator.Send(request);
             return Ok(response);
         }

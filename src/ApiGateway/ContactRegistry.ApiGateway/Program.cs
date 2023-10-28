@@ -1,5 +1,6 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Cache.CacheManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,11 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange
 //services
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddOcelot(builder.Configuration)
+    .AddCacheManager(x =>
+    {
+        x.WithDictionaryHandle();
+    });
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
@@ -30,6 +35,7 @@ app.UseSwaggerUI();
 //mapcontrollers
 app.MapControllers();
 app.UseCors("CorsPolicy");
-Task<IApplicationBuilder> task = app.UseOcelot();
+
+app.UseOcelot();
 
 app.Run();

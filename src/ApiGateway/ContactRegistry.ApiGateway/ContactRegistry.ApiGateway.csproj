@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
-    <PackageReference Include="Ocelot" Version="20.0.0" />
+    <PackageReference Include="Ocelot" Version="19.0.4" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="19.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
