@@ -51,7 +51,7 @@ public class ContactsTest
           .ReturnsAsync(GetMockContactById(ContactId1));
 
         // Act
-        var result = await _contactsController.GetContactById(new GetContactByIdQueryRequest());
+        var result = await _contactsController.GetContactById(ContactId1);
         // Assert
         var objectResult = (ObjectResult)result;
         var res = (BaseResponse<GetContactByIdQueryResponse>)objectResult.Value;
@@ -85,7 +85,7 @@ public class ContactsTest
         _mediator.Setup(_ => _.Send(It.IsAny<ContactDeleteCommandRequest>(), It.IsAny<CancellationToken>()))
           .Returns(Task.FromResult(DeleteMockResponse()));
         // Act
-        var result = await _contactsController.DeleteContact(new ContactDeleteCommandRequest());
+        var result = await _contactsController.DeleteContact(ContactId1);
         // Assert
         result.Should().BeOfType<OkObjectResult>();
         var objResult = (OkObjectResult)result;
@@ -136,7 +136,7 @@ public class ContactsTest
         _mediator.Setup(_ => _.Send(It.IsAny<ContactFeatureDeleteCommandRequest>(), It.IsAny<CancellationToken>()))
           .Returns(Task.FromResult(MockContactFeatureDelete()));
         // Act
-        var result = await _contactFeaturesController.RemoveContactFeature(new ContactFeatureDeleteCommandRequest());
+        var result = await _contactFeaturesController.RemoveContactFeature(ContactId1);
         // Assert
         result.Should().BeOfType<OkObjectResult>();
         var objResult = (OkObjectResult)result;

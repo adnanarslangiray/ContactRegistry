@@ -1,11 +1,11 @@
 {
-  "Routes": [
+ "Routes": [
     {
       "DownstreamPathTemplate": "/api/v1/contacts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "contactregistrycontactapi",
+          "Host": "contactregistry.contactapi",
           "Port": 80
         }
       ],
@@ -111,7 +111,7 @@
     }
 
   ],
-"GlobalConfiguration": {
+ "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"
   }
 

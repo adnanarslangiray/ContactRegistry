@@ -29,8 +29,9 @@ namespace ContactRegistry.ContactAPI.Controllers.v1
         // delete
         [HttpDelete]
         [Route("contact-features/{id}")]
-        public async Task<IActionResult> RemoveContactFeature([FromRoute] ContactFeatureDeleteCommandRequest request )
+        public async Task<IActionResult> RemoveContactFeature([FromRoute] string id )
         {
+            var request = new ContactFeatureDeleteCommandRequest() { Id = id };
             var response = await _mediator.Send(request);
             return Ok(response);
         }

@@ -22,6 +22,11 @@ public class GetContactByIdQueryHandler : IRequestHandler<GetContactByIdQueryReq
 
         var contact = _mapper.Map<GetContactByIdQueryResponse>(result);
 
-        return new BaseResponse<GetContactByIdQueryResponse>() { Data = contact, Success = result != null };
+        return new BaseResponse<GetContactByIdQueryResponse>()
+        {
+            Data = contact,
+            Success = result != null,
+            Message =  result != null ? "Contact Found" : "Contact Not Found"
+        };
     }
 }
