@@ -21,7 +21,7 @@ public class ContactService : IContactService
     public async Task<ContactList> GetAllAsync(int page, int size)
     {
         var query = _contactReadRepository.Table.Include(o => o.ContactFeatures).AsNoTracking();
-        var list = query.Skip(page * size).Take(size);
+        var list = query.Skip((page - 1) * size).Take(size);
         var count = await query.CountAsync();
         return new ContactList
         {
