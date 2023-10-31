@@ -59,7 +59,7 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 );
 builder.Services.AddSingleton<IRabbitMQEventBusProducer, RabbitMQEventBusProducer>();
 //builder.Services.AddSingleton<ReportCreateEventBusConsumer>();
-builder.Services.AddSingleton<ReportCreateHelper>();
+builder.Services.AddSingleton<IReportCreateHelper, ReportCreateHelper>();
 SwaggerConfigure(builder.Services);
 
 var app = builder.Build();

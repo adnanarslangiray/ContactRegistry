@@ -4,7 +4,7 @@ using ContactRegistry.ContactReport.Repositories.Interfaces;
 
 namespace ContactRegistry.ContactReport.Helpers;
 
-public class ReportCreateHelper
+public class ReportCreateHelper : IReportCreateHelper
 {
     private readonly IReportRepository _reportRepository;
 

@@ -15,7 +15,7 @@ public class ContactReportsTest
     private readonly Mock<IReportRepository> _reportRepositoryMock;
     private readonly ReportsController _reportsController;
     private readonly Mock<IRabbitMQEventBusProducer> _eventBus;
-    private readonly Mock<ReportCreateHelper> _reportCreateHelper;
+    private readonly Mock<IReportCreateHelper> _reportCreateHelper;
     private const string PreparingReportId = "6009cb85e65f6dce28fb3e51";
     private const string ComplatedReportId = "507f1f77bcf86cd799439011";
 
@@ -23,7 +23,7 @@ public class ContactReportsTest
     {
         _reportRepositoryMock= new Mock<IReportRepository>();
         _eventBus =new Mock<IRabbitMQEventBusProducer>();
-        _reportCreateHelper = new Mock<ReportCreateHelper>();
+        _reportCreateHelper = new Mock<IReportCreateHelper>();
         _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object, _reportCreateHelper.Object);
     }
 

@@ -16,9 +16,9 @@ public class ReportsController : ControllerBase
 
     private readonly IReportRepository _reportService;
     private readonly IRabbitMQEventBusProducer _eventBus;
-    private readonly ReportCreateHelper _reportCreateHelper;
+    private readonly IReportCreateHelper _reportCreateHelper;
 
-    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus, ReportCreateHelper reportCreateHelper)
+    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus, IReportCreateHelper reportCreateHelper)
     {
         _reportService = reportService;
         _eventBus=eventBus;
