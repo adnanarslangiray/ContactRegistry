@@ -1,5 +1,6 @@
 using ContactRegistry.ContactReport.Controllers;
 using ContactRegistry.ContactReport.Entities;
+using ContactRegistry.ContactReport.Helpers;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ public class ContactReportsTest
     private readonly Mock<IReportRepository> _reportRepositoryMock;
     private readonly ReportsController _reportsController;
     private readonly Mock<IRabbitMQEventBusProducer> _eventBus;
+    private readonly Mock<ReportCreateHelper> _reportCreateHelper;
     private const string PreparingReportId = "6009cb85e65f6dce28fb3e51";
     private const string ComplatedReportId = "507f1f77bcf86cd799439011";
 
@@ -21,7 +23,8 @@ public class ContactReportsTest
     {
         _reportRepositoryMock= new Mock<IReportRepository>();
         _eventBus =new Mock<IRabbitMQEventBusProducer>();
-        _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object);
+        _reportCreateHelper = new Mock<ReportCreateHelper>();
+        _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object, _reportCreateHelper.Object);
     }
 
     //getAllReports

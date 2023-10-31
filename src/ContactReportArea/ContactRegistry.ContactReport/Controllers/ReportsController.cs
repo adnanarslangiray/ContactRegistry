@@ -1,4 +1,6 @@
-﻿using ContactRegistry.ContactReport.Repositories.Interfaces;
+﻿using ContactRegistry.ContactReport.DTOs;
+using ContactRegistry.ContactReport.Helpers;
+using ContactRegistry.ContactReport.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQEventBus.Constants;
 using RabbitMQEventBus.Events;
@@ -14,11 +16,13 @@ public class ReportsController : ControllerBase
 
     private readonly IReportRepository _reportService;
     private readonly IRabbitMQEventBusProducer _eventBus;
+    private readonly ReportCreateHelper _reportCreateHelper;
 
-    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus)
+    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus, ReportCreateHelper reportCreateHelper)
     {
         _reportService = reportService;
         _eventBus=eventBus;
+        _reportCreateHelper=reportCreateHelper;
     }
 
     [HttpGet("reports")]
@@ -75,6 +79,12 @@ public class ReportsController : ControllerBase
 
         return Ok(result);
     }
+    [HttpPost("create-report-details")]
+    public async Task<IActionResult> CreateReportDetails(ContactReportCreateDto contactReport)
+    {
+        await _reportCreateHelper.ContactReportProcess(contactReport);
 
+        return Ok();
+    }
 
 }

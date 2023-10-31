@@ -8,7 +8,7 @@ using RabbitMQEventBus.Constants;
 using RabbitMQEventBus.Events;
 using System.Text;
 
-namespace ContactRegistry.ContactReport.EventBusHelpers.Consumers;
+namespace ContactRegistry.ContactReport.Helpers.EventBusHelpers.Consumers;
 
 public class ReportCreateEventBusConsumer
 {
@@ -17,8 +17,8 @@ public class ReportCreateEventBusConsumer
 
     public ReportCreateEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IReportRepository reportRepository)
     {
-        _persistentConnection=persistentConnection;
-        _reportRepository=reportRepository;
+        _persistentConnection = persistentConnection;
+        _reportRepository = reportRepository;
     }
 
     public void Consume()
@@ -59,7 +59,7 @@ public class ReportCreateEventBusConsumer
         }
 
         IList<ReportDetail> detailData = createEvent.ReportDetails
-            .Select(x => new ReportDetail() { ReportId =createEvent.ReportId, ContactCount = x.ContactCount, Location = x.Location, PhoneNumberCount = x.PhoneNumberCount })
+            .Select(x => new ReportDetail() { ReportId = createEvent.ReportId, ContactCount = x.ContactCount, Location = x.Location, PhoneNumberCount = x.PhoneNumberCount })
             .ToList();
 
         await _reportRepository.CreateReportDetailsAsync(detailData);
