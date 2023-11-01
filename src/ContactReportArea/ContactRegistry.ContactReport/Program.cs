@@ -1,7 +1,6 @@
 using ContactRegistry.ContactReport.Data;
 using ContactRegistry.ContactReport.Data.Interfaces;
-using ContactRegistry.ContactReport.EventBusHelpers.Consumers;
-using ContactRegistry.ContactReport.Extensions;
+using ContactRegistry.ContactReport.Helpers;
 using ContactRegistry.ContactReport.Repositories;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
 using ContactRegistry.ContactReport.Settings;
@@ -59,8 +58,8 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 }
 );
 builder.Services.AddSingleton<IRabbitMQEventBusProducer, RabbitMQEventBusProducer>();
-builder.Services.AddSingleton<ReportCreateEventBusConsumer>();
-
+//builder.Services.AddSingleton<ReportCreateEventBusConsumer>();
+builder.Services.AddSingleton<IReportCreateHelper, ReportCreateHelper>();
 SwaggerConfigure(builder.Services);
 
 var app = builder.Build();
@@ -69,7 +68,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 //eventbus listener rabbitmq
-app.UseEventBusListener();
+//app.UseEventBusListener();
 
 if (app.Environment.IsDevelopment())
 {

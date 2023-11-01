@@ -1,4 +1,4 @@
-﻿using ContactRegistry.ContactReport.EventBusHelpers.Consumers;
+﻿using ContactRegistry.ContactReport.Helpers.EventBusHelpers.Consumers;
 
 namespace ContactRegistry.ContactReport.Extensions;
 

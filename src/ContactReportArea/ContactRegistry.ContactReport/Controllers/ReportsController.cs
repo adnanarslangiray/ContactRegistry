@@ -1,4 +1,6 @@
-﻿using ContactRegistry.ContactReport.Repositories.Interfaces;
+﻿using ContactRegistry.ContactReport.DTOs;
+using ContactRegistry.ContactReport.Helpers;
+using ContactRegistry.ContactReport.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQEventBus.Constants;
 using RabbitMQEventBus.Events;
@@ -14,11 +16,13 @@ public class ReportsController : ControllerBase
 
     private readonly IReportRepository _reportService;
     private readonly IRabbitMQEventBusProducer _eventBus;
+    private readonly IReportCreateHelper _reportCreateHelper;
 
-    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus)
+    public ReportsController(IReportRepository reportService, IRabbitMQEventBusProducer eventBus, IReportCreateHelper reportCreateHelper)
     {
         _reportService = reportService;
         _eventBus=eventBus;
+        _reportCreateHelper=reportCreateHelper;
     }
 
     [HttpGet("reports")]
@@ -35,6 +39,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportById(string id)
     {
         var result = await _reportService.GetReportByIdAsync(id);
+        if (result is null)
+            return NotFound();
         return Ok(result);
     }
 
@@ -42,6 +48,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportDetails()
     {
         var result = await _reportService.GetReportDetailsAsync();
+        if (result?.Count == 0)
+            return NoContent();
         return Ok(result);
     }
 
@@ -49,6 +57,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportDetailsByReportId(string reportId)
     {
         var result = await _reportService.GetReportDetailsByReportIdAsync(reportId);
+        if (result is null)
+            return NotFound();
         return Ok(result);
     }
 
@@ -71,10 +81,17 @@ public class ReportsController : ControllerBase
                 return BadRequest();
 
             }
-        }
+        }else
+            return BadRequest();
 
         return Ok(result);
     }
+    [HttpPost("create-report-details")]
+    public async Task<IActionResult> CreateReportDetails(ContactReportCreateDto contactReport)
+    {
+        await _reportCreateHelper.ContactReportProcess(contactReport);
 
+        return Ok();
+    }
 
 }

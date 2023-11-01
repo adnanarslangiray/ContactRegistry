@@ -42,6 +42,21 @@ public class ContactsTest
         result.Should().BeOfType<OkObjectResult>();
         (result as OkObjectResult).StatusCode.Should().Be(200);
     }
+    [Fact]// data= false
+    public async Task GetContacts_WhenCalled_ReturnsNoContentResult()
+    {
+        GetContactsQueryResponse empty = new();
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<GetContactsQueryRequest>(), It.IsAny<CancellationToken>()))
+          .ReturnsAsync(GetMockContactEmptyList());
+
+        // Act
+        var result = await _contactsController.GetContacts(new GetContactsQueryRequest());
+        // Assert
+        var objectResult = (ObjectResult)result;
+        var res = (BasePaginationResponse<GetContactsQueryResponse>)objectResult.Value;
+        res.Data.Contacts.Should().BeNull();
+    }
 
     [Fact]
     public async Task GetContactById_WhenCalled_ReturnsOkResult()
@@ -59,6 +74,22 @@ public class ContactsTest
         result.Should().BeOfType<OkObjectResult>();
         (result as OkObjectResult).StatusCode.Should().Be(200);
     }
+    [Fact]//notfound
+    public async Task GetContactById_WhenCalled_ReturnsNotFoundResult()
+    {
+        BaseResponse<GetContactByIdQueryResponse> baseResponse = new();
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<GetContactByIdQueryRequest>(), It.IsAny<CancellationToken>()))
+          .ReturnsAsync(baseResponse);
+
+        // Act
+        var result = await _contactsController.GetContactById(ContactId1);
+        // Assert
+        var objectResult = (ObjectResult)result;
+        var res = (BaseResponse<GetContactByIdQueryResponse>)objectResult.Value;
+        res.Data.Should().BeNull();
+        res.Success.Should().BeFalse();
+    }
 
     [Fact]
     public async Task CreateContact_WhenCalled_ReturnsOkResult()
@@ -75,6 +106,22 @@ public class ContactsTest
         var contactResult = (BaseResponse<ContactCreateCommandResponse>)objResult.Value;
         Assert.NotNull(contactResult);
         (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+    [Fact]
+    public async Task CreateContact_WhenCalled_ReturnsBadRequestResult()
+    {
+        BaseResponse<ContactCreateCommandResponse> baseResponse = new();
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<ContactCreateCommandRequest>(), It.IsAny<CancellationToken>()))
+          .Returns(Task.FromResult(baseResponse));
+        // Act
+        var result = await _contactsController.CreateContact(new ContactCreateCommandRequest());
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var objResult = (OkObjectResult)result;
+        var contactResult = (BaseResponse<ContactCreateCommandResponse>)objResult.Value;
+        contactResult.Success.Should().BeFalse();       
+        contactResult.Data.Should().BeNull();
     }
 
     //delete contact
@@ -94,6 +141,22 @@ public class ContactsTest
         (result as OkObjectResult).StatusCode.Should().Be(200);
     }
     [Fact]
+    public async Task DeleteContact_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<ContactDeleteCommandRequest>(), It.IsAny<CancellationToken>()))
+          .Returns(Task.FromResult(new ContactDeleteCommandResponse()));
+        // Act
+        var result = await _contactsController.DeleteContact(ContactId1);
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var objResult = (OkObjectResult)result;
+        var contactResult = (ContactDeleteCommandResponse)objResult.Value;
+        Assert.False(contactResult.Success);
+        (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+
+    [Fact]
     public async Task UpdateContact_WhenCalled_ReturnsOkResult()
     {
         // Arrange
@@ -106,6 +169,21 @@ public class ContactsTest
         var objResult = (OkObjectResult)result;
         var contactResult = (ContactUpdateCommandResponse)objResult.Value;
         Assert.True(contactResult.Success);
+        (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+    [Fact]
+    public async Task UpdateContact_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<ContactUpdateCommandRequest>(), It.IsAny<CancellationToken>()))
+          .Returns(Task.FromResult(new ContactUpdateCommandResponse()));
+        // Act
+        var result = await _contactsController.UpdateContact(new ContactUpdateCommandRequest());
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var objResult = (OkObjectResult)result;
+        var contactResult = (ContactUpdateCommandResponse)objResult.Value;
+        Assert.False(contactResult.Success);
         (result as OkObjectResult).StatusCode.Should().Be(200);
     }
 
@@ -128,6 +206,23 @@ public class ContactsTest
         (result as OkObjectResult).StatusCode.Should().Be(200);
 
     }
+    [Fact] // badrequest
+    public async Task CreateContactFeature_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<ContactFeatureCreateCommandRequest>(), It.IsAny<CancellationToken>()))
+          .Returns(Task.FromResult(new ContactFeatureCreateCommandResponse()));
+        // Act
+        var result = await _contactFeaturesController.CreateContactFeature(new ContactFeatureCreateCommandRequest());
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var objResult = (OkObjectResult)result;
+        var contactResult = (ContactFeatureCreateCommandResponse)objResult.Value;
+        Assert.False(contactResult.Success);
+        (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+
+
     [Fact]
     //delete
     public async Task RemoveContactFeature_WhenCalled_ReturnsOkResult()
@@ -144,6 +239,28 @@ public class ContactsTest
         Assert.True(contactResult.Success);
         (result as OkObjectResult).StatusCode.Should().Be(200);
     }
+    [Fact]
+    public async Task RemoveContactFeature_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _mediator.Setup(_ => _.Send(It.IsAny<ContactFeatureDeleteCommandRequest>(), It.IsAny<CancellationToken>()))
+          .Returns(Task.FromResult(new ContactFeatureDeleteCommandResponse()));
+        // Act
+        var result = await _contactFeaturesController.RemoveContactFeature(ContactId1);
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var objResult = (OkObjectResult)result;
+        var contactResult = (ContactFeatureDeleteCommandResponse)objResult.Value;
+        Assert.False(contactResult.Success);
+        (result as OkObjectResult).StatusCode.Should().Be(200);
+    }
+
+
+
+    #endregion
+
+    #region MockData
+
 
     private static ContactFeatureDeleteCommandResponse MockContactFeatureDelete()
     {
@@ -156,16 +273,12 @@ public class ContactsTest
 
     private static ContactFeatureCreateCommandResponse MockContactFeatureCreate()
     {
-       return new ContactFeatureCreateCommandResponse()
-       {
+        return new ContactFeatureCreateCommandResponse()
+        {
             Success = true,
             Message = "Contact feature created successfully"
         };
     }
-
-    #endregion
-
-
 
     private ContactUpdateCommandResponse UpdateMockResponse()
     {
@@ -215,6 +328,7 @@ public class ContactsTest
         };
     }
 
+
     private BasePaginationResponse<GetContactsQueryResponse> GetMockContactList()
     {
         return new BasePaginationResponse<GetContactsQueryResponse>
@@ -227,4 +341,15 @@ public class ContactsTest
             }
         };
     }
+
+     private BasePaginationResponse<GetContactsQueryResponse> GetMockContactEmptyList()
+    {
+        return new BasePaginationResponse<GetContactsQueryResponse>
+        {
+            Data = new GetContactsQueryResponse()
+            {
+            }
+        };
+    }
+    #endregion
 }

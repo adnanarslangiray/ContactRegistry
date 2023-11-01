@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
-using RabbitMQEventBus.Producer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
+//builder.Services.AddInfrastructureServices();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
@@ -33,6 +33,7 @@ builder.Services.AddApiVersioning(opt =>
                                                     new MediaTypeApiVersionReader("x-api-version"));
 });
 
+builder.Services.AddHttpClient<ReportPreparationEventBusConsumer>();
 //RabbitMQ
 
 #region RabbitMQ MessageBroker
@@ -65,7 +66,7 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
 }
 );
-builder.Services.AddSingleton<IRabbitMQEventBusProducer,RabbitMQEventBusProducer>();
+//builder.Services.AddSingleton<IRabbitMQEventBusProducer,RabbitMQEventBusProducer>(); // http ile haberleþecek
 builder.Services.AddSingleton<ReportPreparationEventBusConsumer>();
 
 #endregion RabbitMQ MessageBroker

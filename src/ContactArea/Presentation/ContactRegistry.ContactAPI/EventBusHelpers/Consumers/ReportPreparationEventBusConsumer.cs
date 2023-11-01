@@ -1,11 +1,11 @@
 ﻿using ContantRegistry.Application.Abstractions.Services;
+using ContantRegistry.Application.DTOs;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Constants;
 using RabbitMQEventBus.Events;
-using RabbitMQEventBus.Producer;
 using System.Text;
 
 namespace ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
@@ -14,13 +14,13 @@ public class ReportPreparationEventBusConsumer
 {
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly IContactService _contactService;
-    private readonly IRabbitMQEventBusProducer _eventBus;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public ReportPreparationEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IContactService contactService, IRabbitMQEventBusProducer eventBus)
+    public ReportPreparationEventBusConsumer(IRabbitMQPersistentConnection persistentConnection, IContactService contactService, IHttpClientFactory httpClientFactory)
     {
         _persistentConnection = persistentConnection;
         _contactService = contactService;
-        _eventBus = eventBus;
+        _httpClientFactory=httpClientFactory;
     }
 
     public void Consume()
@@ -60,24 +60,43 @@ public class ReportPreparationEventBusConsumer
         if (result is not null)
         {
             try
-            {
-                ReportCreateEvent createReportEvent = new()
-                {
-                    ReportId = result.ReportId,
-                    ReportDetails = result.ReportDetails.Select(x => new ReportDetailDetailsBus()
-                    {
-                        ContactCount = x.ContactCount,
-                        Location = x.Location,
-                        PhoneNumberCount = x.PhoneNumberCount
-                    }).ToList()
-                };
+            {    
+                
+                // http post ile yapılacak
+                await PostAsync(result);
 
-                _eventBus.Publish(EventConstants.ContactReportCreateQueue, createReportEvent);
+                //ReportCreateEvent createReportEvent = new()
+                //{
+                //    ReportId = result.ReportId,
+                //    ReportDetails = result.ReportDetails.Select(x => new ReportDetailDetailsBus()
+                //    {
+                //        ContactCount = x.ContactCount,
+                //        Location = x.Location,
+                //        PhoneNumberCount = x.PhoneNumberCount
+                //    }).ToList()
+                //};
+
+                // _eventBus.Publish(EventConstants.ContactReportCreateQueue, createReportEvent);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+    }
+
+    private async Task PostAsync(ContactCreateList reportCreate)
+    {
+
+        var client = _httpClientFactory.CreateClient("");
+        client.BaseAddress = new Uri("http://contactregistry.contactreport:80"); //docker compose 
+        var response = await client.PostAsJsonAsync("api/create-report-details", reportCreate);
+
+        if (response.IsSuccessStatusCode)
+        {
+           _= await response.Content.ReadAsStringAsync();
+            return;
+        }
+
     }
 }

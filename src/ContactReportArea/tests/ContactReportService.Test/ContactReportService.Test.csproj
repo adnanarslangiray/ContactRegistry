@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\ContactRegistry.ContactReport\ContactRegistry.ContactReport.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

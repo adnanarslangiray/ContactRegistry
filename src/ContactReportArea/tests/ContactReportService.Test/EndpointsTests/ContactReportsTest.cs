@@ -1,5 +1,6 @@
 using ContactRegistry.ContactReport.Controllers;
 using ContactRegistry.ContactReport.Entities;
+using ContactRegistry.ContactReport.Helpers;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ public class ContactReportsTest
     private readonly Mock<IReportRepository> _reportRepositoryMock;
     private readonly ReportsController _reportsController;
     private readonly Mock<IRabbitMQEventBusProducer> _eventBus;
+    private readonly Mock<IReportCreateHelper> _reportCreateHelper;
     private const string PreparingReportId = "6009cb85e65f6dce28fb3e51";
     private const string ComplatedReportId = "507f1f77bcf86cd799439011";
 
@@ -21,7 +23,8 @@ public class ContactReportsTest
     {
         _reportRepositoryMock= new Mock<IReportRepository>();
         _eventBus =new Mock<IRabbitMQEventBusProducer>();
-        _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object);
+        _reportCreateHelper = new Mock<IReportCreateHelper>();
+        _reportsController = new ReportsController(_reportRepositoryMock.Object, _eventBus.Object, _reportCreateHelper.Object);
     }
 
     //getAllReports
@@ -68,6 +71,19 @@ public class ContactReportsTest
         Assert.Equal(objResult.StatusCode, (int)HttpStatusCode.OK);
         Assert.Equal(reportResult.Id, ComplatedReportId);
     }
+    [Fact]//badrequest
+    public async Task CreateReport_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.CreateReportAsync())
+          .Returns(Task.FromResult((Report)null));
+        // Act
+        var result = await _reportsController.CreateReport();
+        // Assert
+        result.Should().BeOfType<BadRequestResult>();
+        (result as BadRequestResult).StatusCode.Should().Be(400);
+    }
+
 
     [Fact]
     public async Task GetReportById_WhenCalled_ReturnsOkResult()
@@ -81,6 +97,21 @@ public class ContactReportsTest
         var eportResult = (Report)((OkObjectResult)result).Value;
         Assert.NotNull(eportResult);
     }
+    //nocontent
+    [Fact]
+    public async Task GetReportById_WhenCalled_ReturnsNotFoundResult()
+    {
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.GetReportByIdAsync(It.IsAny<string>()))
+            .ReturnsAsync((Report)null);
+        // Act
+        var result = await _reportsController.GetReportById(ComplatedReportId);
+        // Assert
+        result.Should().BeOfType<NotFoundResult>();
+        (result as NotFoundResult).StatusCode.Should().Be(404);
+    }
+
+
 
     [Fact]
     public async Task GetReportDetails_WhenCalled_ReturnsOkResult()
@@ -95,6 +126,24 @@ public class ContactReportsTest
         var reportResult = (IList<ReportDetail>)objResult.Value;
         Assert.NotNull(reportResult);
     }
+    //nocontent
+    [Fact]
+    public async Task GetReportDetails_WhenCalled_ReturnsNoContentResult()
+    {
+        IList<ReportDetail> emptyList = new List<ReportDetail>();
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.GetReportDetailsAsync())
+          .Returns(Task.FromResult(emptyList));;
+        // Act
+        var result = await _reportsController.GetReportDetails();
+        // Assert
+        result.Should().BeOfType<NoContentResult>();
+        (result as NoContentResult).StatusCode.Should().Be(204);
+    }
+
+
+
+    #region MockData
 
     //Mock  Data
     private Report GetMockReportById(string id)
@@ -151,4 +200,5 @@ public class ContactReportsTest
             }
         };
     }
+    #endregion
 }

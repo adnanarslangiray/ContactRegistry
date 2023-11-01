@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\EventBusArea\RabbitMQEventBus\RabbitMQEventBus.csproj" />
     <ProjectReference Include="..\..\Core\ContantRegistry.Application\ContantRegistry.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ContactRegistery.Infrastructure\ContactRegistry.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\ContactRegistry.Persistence\ContactRegistry.Persistence.csproj" />
   </ItemGroup>
 
