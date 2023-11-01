@@ -39,6 +39,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportById(string id)
     {
         var result = await _reportService.GetReportByIdAsync(id);
+        if (result is null)
+            return NotFound();
         return Ok(result);
     }
 
@@ -46,6 +48,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportDetails()
     {
         var result = await _reportService.GetReportDetailsAsync();
+        if (result?.Count == 0)
+            return NoContent();
         return Ok(result);
     }
 
@@ -53,6 +57,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetReportDetailsByReportId(string reportId)
     {
         var result = await _reportService.GetReportDetailsByReportIdAsync(reportId);
+        if (result is null)
+            return NotFound();
         return Ok(result);
     }
 
@@ -75,7 +81,8 @@ public class ReportsController : ControllerBase
                 return BadRequest();
 
             }
-        }
+        }else
+            return BadRequest();
 
         return Ok(result);
     }

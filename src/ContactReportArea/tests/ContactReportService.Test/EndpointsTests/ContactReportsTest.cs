@@ -71,6 +71,19 @@ public class ContactReportsTest
         Assert.Equal(objResult.StatusCode, (int)HttpStatusCode.OK);
         Assert.Equal(reportResult.Id, ComplatedReportId);
     }
+    [Fact]//badrequest
+    public async Task CreateReport_WhenCalled_ReturnsBadRequestResult()
+    {
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.CreateReportAsync())
+          .Returns(Task.FromResult((Report)null));
+        // Act
+        var result = await _reportsController.CreateReport();
+        // Assert
+        result.Should().BeOfType<BadRequestResult>();
+        (result as BadRequestResult).StatusCode.Should().Be(400);
+    }
+
 
     [Fact]
     public async Task GetReportById_WhenCalled_ReturnsOkResult()
@@ -84,6 +97,21 @@ public class ContactReportsTest
         var eportResult = (Report)((OkObjectResult)result).Value;
         Assert.NotNull(eportResult);
     }
+    //nocontent
+    [Fact]
+    public async Task GetReportById_WhenCalled_ReturnsNotFoundResult()
+    {
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.GetReportByIdAsync(It.IsAny<string>()))
+            .ReturnsAsync((Report)null);
+        // Act
+        var result = await _reportsController.GetReportById(ComplatedReportId);
+        // Assert
+        result.Should().BeOfType<NotFoundResult>();
+        (result as NotFoundResult).StatusCode.Should().Be(404);
+    }
+
+
 
     [Fact]
     public async Task GetReportDetails_WhenCalled_ReturnsOkResult()
@@ -98,6 +126,24 @@ public class ContactReportsTest
         var reportResult = (IList<ReportDetail>)objResult.Value;
         Assert.NotNull(reportResult);
     }
+    //nocontent
+    [Fact]
+    public async Task GetReportDetails_WhenCalled_ReturnsNoContentResult()
+    {
+        IList<ReportDetail> emptyList = new List<ReportDetail>();
+        // Arrange
+        _reportRepositoryMock.Setup(x => x.GetReportDetailsAsync())
+          .Returns(Task.FromResult(emptyList));;
+        // Act
+        var result = await _reportsController.GetReportDetails();
+        // Assert
+        result.Should().BeOfType<NoContentResult>();
+        (result as NoContentResult).StatusCode.Should().Be(204);
+    }
+
+
+
+    #region MockData
 
     //Mock  Data
     private Report GetMockReportById(string id)
@@ -154,4 +200,5 @@ public class ContactReportsTest
             }
         };
     }
+    #endregion
 }
