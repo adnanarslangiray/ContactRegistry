@@ -7,4 +7,5 @@ public interface IReportContext
 {
     IMongoCollection<Report> Reports { get; }
     IMongoCollection<ReportDetail> ReportDetails { get; }
+
 }

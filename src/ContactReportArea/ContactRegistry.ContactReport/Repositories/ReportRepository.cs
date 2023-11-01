@@ -2,9 +2,11 @@
 using ContactRegistry.ContactReport.Entities;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
 using MongoDB.Driver;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ContactRegistry.ContactReport.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class ReportRepository : IReportRepository
 {
     private readonly IReportContext _context;

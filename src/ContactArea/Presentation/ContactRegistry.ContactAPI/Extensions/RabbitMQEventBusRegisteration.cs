@@ -1,8 +1,9 @@
 ﻿using ContactRegistry.ContactAPI.EventBusHelpers.Consumers;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ContactRegistry.ContactAPI.Extensions;
-
+[ExcludeFromCodeCoverage]
 public static class RabbitMQEventBusRegisteration
 {
     public static ReportPreparationEventBusConsumer Listener { get; set; }

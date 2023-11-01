@@ -6,10 +6,12 @@ using RabbitMQ.Client.Events;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Constants;
 using RabbitMQEventBus.Events;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace ContactRegistry.ContactReport.Helpers.EventBusHelpers.Consumers;
 
+[ExcludeFromCodeCoverage]
 public class ReportCreateEventBusConsumer
 {
     private readonly IRabbitMQPersistentConnection _persistentConnection;

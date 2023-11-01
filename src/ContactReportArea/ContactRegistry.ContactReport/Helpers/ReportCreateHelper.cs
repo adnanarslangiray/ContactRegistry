@@ -1,9 +1,11 @@
 ﻿using ContactRegistry.ContactReport.DTOs;
 using ContactRegistry.ContactReport.Entities;
 using ContactRegistry.ContactReport.Repositories.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ContactRegistry.ContactReport.Helpers;
 
+[ExcludeFromCodeCoverage]
 public class ReportCreateHelper : IReportCreateHelper
 {
     private readonly IReportRepository _reportRepository;

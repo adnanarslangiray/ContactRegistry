@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\ContactRegistry.Common\ContactRegistry.Common.csproj" />
     <ProjectReference Include="..\ContactRegistery.Domain\ContactRegistry.Domain.csproj" />
+	  <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
 
 </Project>
