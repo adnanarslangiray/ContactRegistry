@@ -75,8 +75,8 @@ API rotalarının tanımları ve ilişkilendirilmiş HTTP metotları bulunmaktad
 
 
 # Mimari (Project Architecture)
+![Screenshot_3](https://github.com/adnanarslangiray/ContactRegistry/assets/33246502/95331b9a-89fd-435c-9cd5-b13dc5d92244)
 
-![prjarc2](https://github.com/adnanarslangiray/ContactRegistry/assets/33246502/00eb24a4-4b7f-4ff6-9ea4-c4aeebad368c)
 
 
 
