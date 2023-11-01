@@ -1,6 +1,6 @@
 # Rehber Kaydı ve Raporlaması
 -Rehberde kişi kaydı oluşturulup kişiyle ilgili kişisel bilgileri (telefon numarası,e posta adresi vb.) kişi kaydına eklenmesi ve istenildiğinde raporlanmasını sağlanmıştır\
--Birbirleriyle Mesaj broker ve (http) Rest api  aracılığıyla haberleşebilen microservis yapısı inşa edilmiştir.\
+-Birbirleriyle Mesaj broker ve (http) Rest api  aracılığıyla haberleşebilen microservice yapısı inşa edilmiştir.\
 -ContactAPI projesinde Onion Katmanlı mimari kullanılmıştır.CQRS pattern uygulanmıştır.
 ## Çalıştırma (How to Run)
 `docker compose up` : Bu komutla projeyi docker aracılığıyla ayağa kaldırabilirsiniz.\
